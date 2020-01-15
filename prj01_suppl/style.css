@@ -3,13 +3,59 @@
     justify-content: space-between;
     color:#000000;
     background-color:#D3D4C4;
-    max-width:1200px;
+    max-width: width 100%;;
+    min-height: 100px;
+    border-radius: 10px;
+    border: 2px solid #000000;
     margin:auto;
 }
 
+.profileContainer {
+    display: flex;
+    padding: 2%;
+
+}
+
+.headitembig {
+    display: inline;
+}
+
+.headitemsmall{
+    display: none;
+}
 
 .roundCornerBox {
+    
     background-color: #D3D4C4;
     border-radius: 10px;
     border: 2px solid #000000;
+    width: 300px ;
+    height: 300px;
+    
 }
+
+@media (max-width: 500px){
+    .container {
+        display: flex;
+        justify-content: space-between;
+        color:#000000;
+        background-color:#D3D4C4;
+        max-width:1200px;
+        min-height: 30px;
+        margin:auto;
+    }
+
+    .headitembig {
+        display: none;
+    }
+
+    .headitemsmall {
+        display: block;
+        align-items: center;
+        margin: auto;    
+    }
+
+    .profilePic {
+        display: none;
+    }
+};

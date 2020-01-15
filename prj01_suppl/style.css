@@ -12,7 +12,23 @@
 
 .profileContainer {
     display: flex;
+    flex-wrap: wrap;
     padding: 2%;
+    flex-direction: row;
+    justify-content: space-around;
+    
+    
+
+
+}
+
+.tr {
+    justify-content: space-between ;
+}
+
+
+.profilePic {
+    width: 50px;
 
 }
 
@@ -29,8 +45,10 @@
     background-color: #D3D4C4;
     border-radius: 10px;
     border: 2px solid #000000;
-    width: 300px ;
-    height: 300px;
+    width: 200px;
+    height: 200px;
+    word-wrap: break-word;
+    /*margin: 1%;*/
     
 }
 
@@ -57,5 +75,12 @@
 
     .profilePic {
         display: none;
+    }
+
+    .profileContainer {
+        display: flex;
+        padding: 2%;
+        flex-direction: column;
+    
     }
 };

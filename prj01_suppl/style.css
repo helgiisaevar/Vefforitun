@@ -1,0 +1,15 @@
+.container {
+    display: flex;
+    justify-content: space-between;
+    color:#000000;
+    background-color:#D3D4C4;
+    max-width:1200px;
+    margin:auto;
+}
+
+
+.roundCornerBox {
+    background-color: #D3D4C4;
+    border-radius: 10px;
+    border: 2px solid #000000;
+}

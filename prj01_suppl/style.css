@@ -27,12 +27,16 @@ button {
   margin: auto;
 } 
 
-.makeroom{
+.makeroom1{
   padding-left:2em;
   padding-right:2em;
   font-size:1.4em;
-    
-    
+  display: flex;
+}
+a #makeroom2{
+  padding-right:2em;
+  font-size:1.4em;
+
 }
 
 .profileContainer {
@@ -41,19 +45,18 @@ button {
   flex-direction: row;
   justify-content: space-around;
 }
-.blala {
-  text-align: justify;
-  text-justify: inter-word;
-  font-stretch: ultra-condensed;
-}
 
 #Contact{
   text-align: right;
+  padding: 10px;
+  padding-top: 4%;
 }
 
 #aboutUs{
   text-align: justify;
-  max-width: 400px;
+  padding-top: 4%;
+  padding:10px;
+  max-width: 300px;
 }
 .footer-info {
   display: flex;
@@ -155,6 +158,9 @@ button {
     width: 275px;
     height: 150px;
   }
+  .footer-info {
+    margin-left: 10%;
+    margin-right: 10%;
 }
 
 @media (max-width: 500px) {
@@ -198,6 +204,11 @@ button {
     justify-content: space-between;
     
     
+    
+  }
+  .footer-info {
+    margin-left: 10%;
+    margin-right: 10%;
   }
   .imageContainer{
     display: none;

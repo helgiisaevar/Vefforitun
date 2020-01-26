@@ -16,28 +16,26 @@ button {
   background: none;
 }
 
+.displayFlex{
+   display: flex;
+}
+
 .container {
-  display: flex;
+ 
   color: #000000;
   background-color: #add8e8;
   padding: 15px;
   border-radius: 10px;
   border: 2px solid #000000;
-  align-items: center;
   margin: auto;
 } 
 
 .makeroom1{
   padding-left:2em;
-  padding-right:2em;
-  font-size:1.4em;
-  display: flex;
-}
-a #makeroom2{
-  padding-right:2em;
-  font-size:1.4em;
 
+  font-size:1.4em;
 }
+
 
 .profileContainer {
   display: flex;

@@ -10,31 +10,65 @@ a {
   color: black;
 }
 
+.headitemsmall {
+  display: none;
+}
+
 button {
   padding: 0;
   border: none;
   background: none;
 }
 
-.displayFlex{
-   display: flex;
+
+.makenewline{
+  display: inline;
+  background-color: azure;
+  position: relative;
 }
 
-.container {
- 
+.container{
+  display: flex;
+  justify-content: space-between;
   color: #000000;
   background-color: #add8e8;
-  padding: 15px;
+  margin-top: 0em;
+  margin-bottom: 20em;
+  padding-bottom: 1rem;
   border-radius: 10px;
   border: 2px solid #000000;
   margin: auto;
+  
 } 
 
-.makeroom1{
-  padding-left:2em;
-
-  font-size:1.4em;
+#aboutus{
+  text-align: justify;
+  max-width: 400px;
 }
+
+#contact{
+  text-align: right;
+}
+.headitembig {
+  display: flex;
+  justify-content: space-between;
+  margin: auto;
+}
+
+#fireid{
+  text-align: right;
+  background-color: brown;
+}
+#hireid{
+  background-color: burlywood;
+
+}
+.makeroom1{
+  font-size:1.5em;
+  text-align: right;
+}
+
+
 
 
 .profileContainer {
@@ -55,6 +89,13 @@ button {
   padding-top: 4%;
   padding:10px;
   max-width: 300px;
+}
+
+.foodBox {
+  width: 40%;
+  margin-bottom: 20px;
+  text-align: center;
+  display: inline-block;
 }
 .footer-info {
   display: flex;
@@ -78,7 +119,8 @@ button {
   height: 200px;
   word-wrap: break-word;
   display: flex;
-  margin: 2%;
+  margin: 1%;
+  
 }
 
 .imageContainer {
@@ -87,6 +129,11 @@ button {
   /* margin-top: 5%;
     margin-bottom: 5%; */
   margin: 3%;
+}
+
+.footerBox{
+  width: 40%;
+  float: left;
 }
 #personelName {
 
@@ -132,15 +179,6 @@ button {
   width: 50px;
 }
 
-.headitembig {
-  display: inline;
-  margin: auto;
-}
-
-.headitemsmall {
-  display: none;
-}
-
 .roundCornerBox {
   background-color: #d3d4c4;
   border-radius: 10px;
@@ -151,6 +189,17 @@ button {
   /*margin: 1%;*/
 }
 
+.p5{
+  padding: 5px;
+}
+.p10{
+  padding: 10px;
+}
+.p20{
+  padding: 20px;
+}
+
+
 @media (max-width: 651px) {
   .nameCard {
     width: 275px;
@@ -159,6 +208,15 @@ button {
   .footer-info {
     margin-left: 10%;
     margin-right: 10%;
+}
+.footerBox {
+  width:100%;
+  float:left;
+}
+.fontsize{
+  font-size: 12px;
+}
+
 }
 
 @media (max-width: 500px) {
@@ -172,6 +230,10 @@ button {
     margin: auto;
     align-items: center;
   }
+  .footerBox {
+    width:100%;
+    float:left;
+}
 
   .headitembig {
     display: none;
@@ -201,9 +263,13 @@ button {
     align-items: center;
     justify-content: space-between;
     
-    
-    
+ 
+  } 
+  .fontsize{
+    font-size: 12px;
+   
   }
+
   .footer-info {
     margin-left: 10%;
     margin-right: 10%;

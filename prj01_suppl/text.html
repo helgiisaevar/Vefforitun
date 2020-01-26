@@ -5,23 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <link rel="stylesheet" href="style.css" />
+
+    <meta name="viewport" content="width=device-width" />
   </head>
 
   <body>
     <div class="container">
-      <div class="headitemsmall">☰</div>
-      <div class="headitembig"></div>
-        <div class="makeroom1 displayFlex"><a href="">Hire</a> </div> 
-          <div class='makeroom1 displayFlex'><a href="">Fire</a></div>
-        <div> 
+      <div class="headitemsmall"><a href=''>☰</a></div>
+      <div class="headitembig">   
+        <div class="makeroom1" id='hireid'><a href="">Hire</a> </div> 
+        <div class='makeroom1' id='fireid'><a href="">Fire</a></div>
+      </div>
+        <div class='makenewline '> 
         <form method="POST" action="text.html">
           <input type="text" placeholder="Search Person.." name="search" />
           <button type="submit">Search</button>
         </form>
       </div>
+
     </div>
 
-    <div class="profileContainer">
+    <div class="profileContainer fontsize">
       <div class="nameCard smallScreenText">
         <div class="imageContainer">
           <img
@@ -101,18 +105,18 @@
   </body>
 
   <footer>
-    <div class="footer-info">
-      <div  id='aboutUs'>
-        <h2>ABOUT US</h2>
+    <div class="footer-info fontsize p5">
+      <div class='footerBox p20' id='aboutUs'>
+        <p>ABOUT US</p>
         <p>
           Staff Inc. is dedicated to making your management life easier! All
           your employees' details on a single screen. Hiring, firing, retiring -
           just a click away.
         </p>
       </div>
-      <div id='Contact'>
-        <h2>CONTACT</h2>
-        <p>
+      <div class= 'footerBox p20 ' id='Contact'>
+        <p >CONTACT</p>
+        <p >
           Staff Inc.<br/> Industrial Ave 201 <br/>1102 Down Town<br/> Tel: 001 555 444 12</br>
           contact@staff.inc
         </p>

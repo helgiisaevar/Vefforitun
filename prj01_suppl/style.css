@@ -116,8 +116,8 @@ button {
   border: 3px solid black;
   border-radius: 10px;
   width: 80%;
-  padding: 30px;
-  margin: 0 auto;
+  padding: 20px;
+  margin:  auto;
 }
 
 .nameCard {
@@ -129,6 +129,7 @@ button {
   height: 200px;
   word-wrap: break-word;
   margin: 1%;
+  margin-bottom: 1em;
 }
 
 .imageContainer {
@@ -205,11 +206,7 @@ button {
 }
 
 @media (max-width: 1000px) {
-  .nameCard{
-    width: 35%;
-    height: 35%;
-  }
-
+  
 }
 
 /* 
@@ -238,10 +235,7 @@ button {
 
 
 @media (max-width: 651px) {
-  .nameCard {
-    width: 45%;
-    height: 45%;
-  }
+
 
   .fontsize {
     font-size: 14px;
@@ -274,9 +268,12 @@ button {
   .nameCard{
     width: 95%;
   }
-  .footer-info{
-
+  .footer-info {
+    margin-left: 10%;
+    margin-right: 10%;
   }
+  
+
   .fontsize{
     font-size: 10px;
   }
@@ -311,6 +308,7 @@ button {
     align-items: center;
     justify-content: space-between;
   }
+  
   .fontsize {
     font-size: 12px;
   }

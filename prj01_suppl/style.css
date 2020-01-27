@@ -49,11 +49,11 @@ button {
 
 .Contact {
   text-align: right;
-  width: 25%;
+  width: 35%;
   float: right;
 }
 
-.makeroom1{
+.makeroom1 {
   font-size: 1.5rem;
 }
 
@@ -70,7 +70,7 @@ button {
   text-align: center;
 }
 
-.personelName{
+.personelName {
   text-align: center;
 }
 
@@ -105,7 +105,6 @@ button {
   max-width: 400px;
 }
 
-
 .footer-info {
   text-align: justify;
   display: flex;
@@ -117,7 +116,7 @@ button {
   border-radius: 10px;
   width: 80%;
   padding: 20px;
-  margin:  auto;
+  margin: auto;
 }
 
 .nameCard {
@@ -150,7 +149,6 @@ button {
   padding-left: 6%;
   padding-right: 6%;
   padding-bottom: 6%;
- 
 }
 
 .ul {
@@ -206,77 +204,44 @@ button {
 }
 
 @media (max-width: 1000px) {
-  
-}
-
-/* 
-
-  .profileContainer {
-    text-align: center;
-    margin: auto;
-    margin-left: 30%;
-    margin-right: 30%;
+  .aboutUs {
+    max-width: 45%;
   }
-  #bodyContent {
-    display: flex;
-  }
-
-.aboutUs {
-  text-align: justify;
-  max-width: 35%;
-  float: left;
 }
-  .nameCard {
-    background-color: #add8e8;
-    border-radius: 10px;
-    width: 65%;
-    height: 180px;display: inline-block;
-    /* word-wrap: break-word; */
-
 
 @media (max-width: 651px) {
-
+  .profileContainer {
+    display: flex;
+    text-align: center;
+  }
 
   .fontsize {
     font-size: 14px;
   }
 
-.aboutUs {
-  text-align: justify;
-  max-width: 45%;
-  float: left;
-}
-}
-
-@media (max-width: 500px) {
   .container {
     display: flex;
     justify-content: space-between;
     color: #000000;
     background-color: #add8e8;
-    max-width: 1200px;
     min-height: 30px;
     margin: auto;
     align-items: center;
   }
 
-.aboutUs {
-  text-align: justify;
-  max-width: 35%;
-  float: left;
-}
-  .nameCard{
-    width: 95%;
+  .aboutUs {
+    text-align: justify;
+    max-width: 45%;
+    float: left;
   }
-  .footer-info {
-    margin-left: 10%;
-    margin-right: 10%;
+  .nameCard {
+    display: flex;
+    width: 65%;
+    height: 150px;
+    text-align: center;
+    align-items: center;
   }
-  
 
-  .fontsize{
-    font-size: 10px;
-  }
   .makenewline {
     display: none;
   }
@@ -298,21 +263,23 @@ button {
     display: none;
   }
 
-  .profileContainer {
-    display: flex;
-    padding: 2%;
-    flex-direction: column;
-    align-items: center;
-  }
   .smallScreenText {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
     align-items: center;
     justify-content: space-between;
   }
-  
-  .fontsize {
-    font-size: 12px;
+  .personelInfo {
+    padding-top:5%;
+    padding-left: 0%;
+    padding-right: 0%;
+    padding-bottom: 6%;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    margin-left: 10px;
   }
-
   .imageContainer {
     display: none;
   }

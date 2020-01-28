@@ -61,8 +61,10 @@ button {
   display: flex;
   justify-content: space-between;
   margin: auto;
-  width: 13%;
+  margin-left:43.5%;
+  margin-right: 43.5%;
   margin-bottom: 30px;
+
 }
 
 .makenewline {
@@ -206,6 +208,12 @@ button {
 @media (max-width: 1000px) {
   .aboutUs {
     max-width: 45%;
+  }
+  .headitembig {
+
+    margin-left: 42.5%;
+    margin-right:42.5%;
+
   }
 }
 

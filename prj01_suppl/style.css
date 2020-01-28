@@ -10,6 +10,10 @@ a {
   color: black;
 }
 
+.infoP {
+  margin-bottom: 5%;
+  padding: 2%;
+}
 .profileContainer {
   display: flex;
   flex-wrap: wrap;
@@ -220,8 +224,8 @@ button {
     padding: 1%;
   }
   .profileContainer {
-    padding-left: 3%;
-    padding-right: 3%;
+    padding-left: 15%;
+    padding-right: 15%;
   }
 }
 

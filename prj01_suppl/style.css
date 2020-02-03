@@ -10,7 +10,14 @@ a {
   color: black;
 }
 
+img {
+  height: 40%; width: 100%; 
+  object-fit: contain;
+}
+
 .infoP {
+  
+  height: 30%;
   margin-bottom: 5%;
   padding: 2%;
 }
@@ -68,7 +75,6 @@ button {
   margin-left:43.5%;
   margin-right: 43.5%;
   margin-bottom: 30px;
-
 }
 
 .makenewline {
@@ -131,7 +137,7 @@ button {
   background-color: #add8e8;
   border-radius: 10px;
   border: 2px solid #000000;
-  width: 300px;
+  width: 220px;
   height: 200px;
   word-wrap: break-word;
   margin: 1%;
@@ -139,8 +145,8 @@ button {
 }
 
 .imageContainer {
-  min-width: 30%;
-  max-width: 30%;
+  min-width: 35%;
+  max-width: 35%;
   /* margin-top: 5%;
     margin-bottom: 5%; */
   margin: 3%;
@@ -152,10 +158,11 @@ button {
 }
 
 .personelInfo {
-  padding-top: 10%;
-  padding-left: 6%;
-  padding-right: 6%;
+  padding-top: 6%;
+  padding-left: 3%;
+  padding-right: 3%;
   padding-bottom: 6%;
+  font-size: 18px;
 }
 
 .ul {
@@ -227,6 +234,10 @@ button {
     padding-left: 15%;
     padding-right: 15%;
   }
+  .nameCard {
+    width: 300px;
+    height: 175px;
+  }
 }
 
 @media (max-width: 651px) {
@@ -275,13 +286,13 @@ button {
     margin: auto;
   }
 
-  #personalName {
-    display: flex;
-  }
+  /* .personalName {
+    display: ;
+  } */
 
-  .profilePic {
+  /*.profilePic {
     display: none;
-  }
+  }*/
 
   .smallScreenText {
     margin-left: auto;
@@ -291,6 +302,7 @@ button {
     justify-content: space-between;
   }
   .personelInfo {
+    width: 100%;
     padding-top:5%;
     padding-left: 0%;
     padding-right: 0%;
@@ -298,9 +310,19 @@ button {
     text-align: center;
     align-items: center;
     justify-content: center;
-    margin-left: 10px;
+    /*margin-left: 10px;*/
   }
-  .imageContainer {
+  /* .imageContainer {
     display: none;
+  } */
+  .personelName {
+    display: contents;
+  }
+  img {
+    display: none;
+  }
+  .nameCard {
+    display: inline;
+    height: fit-content;
   }
 }

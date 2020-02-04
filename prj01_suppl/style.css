@@ -18,8 +18,8 @@ img {
 .infoP {
   
   height: 30%;
-  margin-bottom: 5%;
-  padding: 2%;
+  /* margin-bottom: 5%; */
+  /* padding: 2%; */
 }
 .profileContainer {
   display: flex;
@@ -58,10 +58,17 @@ button {
   float: left;
 }
 
+.aboutUs P {
+  margin: 2%;
+}
 .Contact {
   text-align: right;
   width: 35%;
   float: right;
+}
+
+.Contact P {
+  margin: 2%;
 }
 
 .makeroom1 {
@@ -265,13 +272,13 @@ button {
     max-width: 45%;
     float: left;
   }
-  .nameCard {
+  /* .nameCard {
     display: flex;
     width: 65%;
-    height: 150px;
+    height: 300px;
     text-align: center;
     align-items: center;
-  }
+  } */
 
   .makenewline {
     display: none;
@@ -303,26 +310,33 @@ button {
   }
   .personelInfo {
     width: 100%;
-    padding-top:5%;
+    padding-top:0%;
     padding-left: 0%;
     padding-right: 0%;
-    padding-bottom: 6%;
+    padding-bottom: 7%;
     text-align: center;
     align-items: center;
     justify-content: center;
-    /*margin-left: 10px;*/
   }
-  /* .imageContainer {
-    display: none;
-  } */
+  .imageContainer {
+    display: inline;
+  } 
+
+
   .personelName {
-    display: contents;
+    position: center;
   }
   img {
     display: none;
   }
   .nameCard {
-    display: inline;
-    height: fit-content;
+    display: block;
+    height: 17.5%;
+    
   }
+  .infoP {
+    margin: 1px;
+    padding: 2px;
+  }
+
 }

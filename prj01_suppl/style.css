@@ -16,7 +16,6 @@ img {
 }
 
 .infoP {
-  
   height: 30%;
   margin-bottom: 5%; 
   /* padding: 2%; */
@@ -26,6 +25,7 @@ img {
   flex-wrap: wrap;
   flex-direction: row;
   justify-content: space-around;
+
 }
 .headitemsmall {
   display: none;
@@ -95,11 +95,6 @@ button {
 
 #bodyContent {
   display: flex;
-  /* width: 100%; */
-  /* margin-top: 20px; */
-  /* margin-left: auto;
-  margin-right: auto; */
-  /* padding: 1%; */
 }
 
 .profileContainer {
@@ -144,7 +139,7 @@ button {
   background-color: #add8e8;
   border-radius: 10px;
   border: 2px solid #000000;
-  width: 220px;
+  width: 22.5%;
   height: 200px;
   word-wrap: break-word;
   margin: 1%;
@@ -154,8 +149,6 @@ button {
 .imageContainer {
   min-width: 36%;
   max-width: 36%;
-  /* margin-top: 5%;
-    margin-bottom: 5%; */
   margin: 2%;
 }
 
@@ -172,11 +165,11 @@ button {
   font-size: 18px;
 }
 
-.ul {
+/* .ul {
   list-style-type: none;
-}
+} */
 
-.department {
+/* .department {
   margin: 2%;
 }
 
@@ -186,13 +179,13 @@ button {
 
 .joined {
   margin: 10%;
-}
+} */
 
-.tr {
+/* .tr {
   justify-content: space-between;
   width: 195px;
   height: 56;
-}
+} */
 
 .td {
   padding: 1px;
@@ -213,8 +206,7 @@ button {
   word-wrap: break-word;
   /*margin: 1%;*/
 }
-
-.p5 {
+/* .p5 {
   padding: 5px;
 }
 .p10 {
@@ -222,7 +214,7 @@ button {
 }
 .p20 {
   padding: 20px;
-}
+} */
 
 @media (max-width: 1000px) {
   .aboutUs {
@@ -258,9 +250,10 @@ button {
   }
 
   #bodyContent {
-    padding-left: 25%;
-    padding-right: 25%;
+    padding-left: 30%;
+    padding-right: 30%;
   }
+
   .container {
     display: flex;
     justify-content: space-between;
@@ -276,13 +269,6 @@ button {
     max-width: 45%;
     float: left;
   }
-  /* .nameCard {
-    display: flex;
-    width: 65%;
-    height: 300px;
-    text-align: center;
-    align-items: center;
-  } */
 
   .makenewline {
     display: none;
@@ -296,14 +282,6 @@ button {
     align-items: center;
     margin: auto;
   }
-
-  /* .personalName {
-    display: ;
-  } */
-
-  /*.profilePic {
-    display: none;
-  }*/
 
   .smallScreenText {
     margin-left: auto;
@@ -326,21 +304,59 @@ button {
     display: inline;
   } 
 
-
-  .personelName {
-    position: center;
-  }
   img {
     display: none;
   }
   .nameCard {
     display: block;
     height: 17.5%;
-    
   }
   .infoP {
     margin: 1px;
     padding: 2px;
   }
+}
 
+@media print {
+  body {
+    font-family: 'Ibarra Real Nova', serif;
+  }
+
+  .nameCard {
+    text-align: center;
+    display: block;
+    width: 300px;
+    
+
+    margin: auto;
+  }
+
+  .personelInfo{
+    margin-top: 25px;
+    padding-top: 0px;
+  }
+
+  /* .personelName {
+   display: inline;
+    text-align: center;
+  }  */
+  
+
+  .imageContainer {
+    display: inline;
+    /* margin: 0px; */
+    /* padding: 0px; */
+    margin: 0px;
+  } 
+
+  .personelName {
+    margin-top: 12.5px;
+    font-weight: bold;
+  }
+
+  img{
+    display: none;
+  } 
+  
+  
 }

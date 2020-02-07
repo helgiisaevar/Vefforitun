@@ -235,11 +235,11 @@ button {
 
   }
   #bodyContent {
-    padding: 1%;
+    padding-top: 1%;
   }
   .profileContainer {
-    padding-left: 15%;
-    padding-right: 15%;
+    width: 700px;
+    margin: auto;
   }
   .nameCard {
     width: 300px;
@@ -257,6 +257,10 @@ button {
     font-size: 14px;
   }
 
+  #bodyContent {
+    padding-left: 25%;
+    padding-right: 25%;
+  }
   .container {
     display: flex;
     justify-content: space-between;

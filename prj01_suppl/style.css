@@ -18,8 +18,7 @@ img {
 .infoP {
   
   height: 30%;
-  /* margin-bottom: 5%; */
-  /* padding: 2%; */
+
 }
 .profileContainer {
   display: flex;
@@ -40,15 +39,20 @@ button {
 .fontsize {
   font-size: 1.2em;
 }
+
 .container {
-  justify-content: space-between;
   color: #000000;
   background-color: #add8e8;
   margin-top: 0em;
   margin-bottom: 20em;
-  padding-bottom: 1rem;
+  padding-bottom: 1em;
   border-radius: 10px;
   border: 2px solid #000000;
+  margin: auto;
+}
+
+.headercenter {
+  align-items: center;
   margin: auto;
 }
 
@@ -73,15 +77,16 @@ button {
 
 .makeroom1 {
   font-size: 1.5rem;
+  
 }
 
 .headitembig {
   display: flex;
+  margin-bottom: 20px;
+  width: 150px;
   justify-content: space-between;
   margin: auto;
-  margin-left:43.5%;
-  margin-right: 43.5%;
-  margin-bottom: 30px;
+  margin-bottom: 10px;
 }
 
 .makenewline {
@@ -228,12 +233,7 @@ button {
   .aboutUs {
     max-width: 45%;
   }
-  .headitembig {
 
-    margin-left: 42.5%;
-    margin-right:42.5%;
-
-  }
   #bodyContent {
     padding: 1%;
   }
@@ -264,7 +264,7 @@ button {
     background-color: #add8e8;
     min-height: 30px;
     margin: auto;
-    align-items: center;
+
   }
 
   .aboutUs {
@@ -272,18 +272,15 @@ button {
     max-width: 45%;
     float: left;
   }
-  /* .nameCard {
-    display: flex;
-    width: 65%;
-    height: 300px;
-    text-align: center;
-    align-items: center;
-  } */
+
 
   .makenewline {
     display: none;
   }
   .headitembig {
+    display: none;
+  }
+  .headercenter{
     display: none;
   }
 
@@ -292,14 +289,6 @@ button {
     align-items: center;
     margin: auto;
   }
-
-  /* .personalName {
-    display: ;
-  } */
-
-  /*.profilePic {
-    display: none;
-  }*/
 
   .smallScreenText {
     margin-left: auto;

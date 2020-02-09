@@ -63,6 +63,8 @@ button {
   float: left;
 }
 
+
+
 .aboutUs P {
   margin: 2%;
 }
@@ -115,7 +117,6 @@ button {
 
 #Contact {
   text-align: right;
-
   padding-top: 4%;
 }
 
@@ -251,8 +252,8 @@ button {
   }
 
   #bodyContent {
-    padding-left: 30%;
-    padding-right: 30%;
+    padding-left: 5%;
+    padding-right:5%;
   }
 
   .container {
@@ -323,17 +324,20 @@ button {
 
 @media print {
   body {
-    font-family: 'Ibarra Real Nova', serif;
+    font-family: 'Montserrat', sans-serif;
   }
 
   .nameCard {
     text-align: center;
     display: block;
     width: 300px;
-    
-
     margin: auto;
   }
+
+.profileContainer{
+  justify-content: center;
+  display: flex;
+}
 
   .personelInfo{
     margin-top: 25px;

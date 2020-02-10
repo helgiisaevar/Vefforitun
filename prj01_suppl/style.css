@@ -241,7 +241,7 @@ button {
   }
 }
 
-@media (max-width: 651px) {
+@media (max-width: 650px) {
   .profileContainer {
     display: flex;
     text-align: center;
@@ -344,27 +344,23 @@ button {
     padding-top: 0px;
   }
 
-  /* .personelName {
-   display: inline;
-    text-align: center;
-  }  */
-  
-
   .imageContainer {
     display: inline;
-    /* margin: 0px; */
-    /* padding: 0px; */
     margin: 0px;
   } 
 
   .personelName {
     margin-top: 12.5px;
-    font-weight: bold;
+    font-weight: bolder;
   }
 
   img{
     display: none;
-  } 
-  
-  
+  }
+  #aboutUsHeader {
+    font-weight: bolder;
+  }
+  #contactHeader {
+    font-weight: bolder;
+  }
 }

@@ -11,14 +11,11 @@ function doAjax() {
             //When successful, print 'Success: ' and the received data
             document.getElementById("changeMe").innerHTML = response.data;
             document.getElementById("changeMe1").innerHTML = "SJÉRÐU EKKI ARRAYI-IÐ....TO BAD";
-            
-            myArray.nodeValue = response.data;
-            myHead = response.data;
             console.log("Success: ", response.data);
         })
         .catch(function (error) {
             //When unsuccessful, print the error.
-            console.log(error + "my error by raggi");
+            console.log(error + " my error by raggi");
         })
         .then(function () {
             // This code is always executed, independent of whether the request succeeds or fails.

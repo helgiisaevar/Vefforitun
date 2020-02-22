@@ -21,3 +21,19 @@ function doAjax() {
             // This code is always executed, independent of whether the request succeeds or fails.
         });
 }
+
+function printBoard(data) {
+    for (let x = 0; x < 9; x++) {
+        for (let y = 0; y < 9; y++) {
+            let number = data[x][y];
+            let elem = getid('cell' + x + y);
+            if (number === ".") {
+                elem.value = '';
+                elem.disabled = false;
+            } else {
+                elem.value = number;
+                elem.disabled = true;
+            }
+        }
+    }
+}

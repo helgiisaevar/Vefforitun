@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,6 +6,7 @@
     <title>Axios example</title>
     <meta charset="UTF-8">
     <script src="script.js"></script>
+    <link rel="stylesheet" href="style.css" />
 
     <!-- We need to import Axios in order to be able to use the axios object below -->
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
@@ -15,11 +17,29 @@
     <p id="changeMe1">In this example, we perform a POST request to "http://someinvaliddomain.is" with a parameter called "myParam" in
         the body and print the output to the console. You are free to adapt this example to your needs in Project 2. The
         request will fail, since the domain does not exist/does not answer our request.</p>
-    <br>
-    <!-- Clicking this button calls doAjax(), which will do an AJAX request -->
-    <button type="button" onclick="doAjax()">Click to do AJAX</button>
 
-    
+    <div class='Box'>
+        <div class='Header'>
+            <div class='Overview'>
+            <p>Row: <input  type='number' min='1' max='1000'></input></p>
+            <p>Columns: <input  type='number' min='1'max='1000'></input></p>
+            <p>Mines: <input  type='number' min='0' max='1000'></input></p></div>
+            <div>
+                <button type='button' class='button' onclick="doAdjax()">Generate Mineswepper Board</button></div>
+                <div class="row">
+                    <div id="diff"></div>
+                    <p id="sudokuId"></p>
+                </div>
+            <p>Game ongoing</p>
+        </div>
+        <div class='GenerateBoard'>
+            <table>
+
+            </table>
+        
+        </div>
+    </div>
+    <br>
 </body>
 
 </html>

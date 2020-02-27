@@ -21,8 +21,9 @@ function doAjax(rowCount, columCount, mineCount) {
             console.log(paramValue)
         })
         .catch(function (error) {
-            //When unsuccessful, print the error.
+            //When unsuccessful, print the error and make the default board
             console.log(error + " my error by raggi");
+            generateDefaultBoard();
         })
         .then(function () {
             // This code is always executed, independent of whether the request succeeds or fails.
@@ -34,6 +35,11 @@ function validateInput(rowCount, columCount, mineCount){
     document.getElementById("changeMe").innerHTML = "doing validation check"
     document.getElementById("changeMe1").innerHTML = "Validation checked out";
 }
+
+function generateDefaultBoard(){
+ //generates a default board
+};
+   
 
 function printBoard(data) {
     for (let x = 0; x < 9; x++) {

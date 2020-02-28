@@ -38,8 +38,12 @@ function validateInput(rowCount, columCount, mineCount){
 
 function generateDefaultBoard(){
  //generates a default board
+    generateBoard(10,10,10);
 };
-   
+
+function generateBoard(rows, cols, mines){
+    
+}
 
 function printBoard(data) {
     for (let x = 0; x < 9; x++) {

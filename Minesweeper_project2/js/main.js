@@ -1,12 +1,11 @@
-//const foo = require("./utils/fetchMinesweeperBoardFromServer");
+console.log('Main running: ')
 
-console.log("Main running: ");
+fetchMinesweeperBoardFromServer(5, 5, 3)
 
-fetchMinesweeperBoardFromServer(5, 5, 3);
+const columns = 4
+const rows = 4
 
-for (let x = 0; x < 4; x++) {
-  const row = createRow(x, 4);
-  document.getElementById("minesweeper_board").appendChild(row);
+for (let x = 0; x < columns; x++) {
+  const row = createColumn(x, rows)
+  document.getElementById('minesweeper_board').appendChild(row)
 }
-
-// generateBoard()

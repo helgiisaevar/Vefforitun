@@ -1,0 +1,67 @@
+.Box {
+  text-align: center;
+  padding-left: 20%;
+  padding-right: 20%;
+}
+.Header {
+  text-align: center;
+  background-color: #a2e5ff;
+  border: 3px solid black;
+}
+
+.Overview {
+  font-size: large;
+}
+/* input{
+    border: 1px solid black;
+    background-position: 20px 10px;
+} */
+
+#rowCount {
+  padding-left: 5px;
+  padding-right: 6px;
+}
+#columCount {
+  padding-left: 6px;
+  padding-right: 6px;
+}
+#mineCount {
+  padding-left: 5px;
+  padding-right: 6px;
+}
+
+button {
+  font-family: "MS Sans Serif";
+  text-align: left;
+  font-size: 14px;
+  height: 30px;
+  width: 100px;
+  background-color: #bfbfbf;
+  color: black;
+  border-bottom: 2px solid #7b7b7b;
+  border-left: 2px solid #ffffff;
+  border-top: 2px solid #ffffff;
+  border-right: 2px solid #7b7b7b;
+}
+
+.box {
+  background-color: #c0c0c0;
+  width: 30px;
+  height: 30px;
+  border: 2px outset #ececec;
+}
+
+.boxWrapper {
+  display: flex;
+  flex-direction: row;
+}
+.rowOfBoxes {
+  display: flex;
+}
+.rowOfBoxesNotFlex {
+  display: inline;
+}
+
+.red {
+  background-color: red !important;
+}

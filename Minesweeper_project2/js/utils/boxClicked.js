@@ -3,11 +3,28 @@ const boxClicked = event => {
   const clickedRow = Number(clickedBox.id.split(';')[0])
   const clickedColumn = Number(clickedBox.id.split(';')[1])
 
-  if (isLocationABomb(clickedRow, clickedColumn)) {
-    // BOOM you ae deade
-    clickedBox.classList.add('red')
+  const hasFlags = clickedBox.classList.contains('flag')
+
+  if (hasFlags) {
     return
   }
+
+  clickedBox.classList.add('opened-box')
+
+  if (isLocationABomb(clickedRow, clickedColumn)) {
+    // Disable board
+    document.getElementById('minesweeper_board').classList.add('disabled')
+
+    // Show all bombs
+    revealAllBombs()
+
+    // Disable game over
+    document.getElementById('loser-title').innerHTML = 'YOU HAVE LOST ! :('
+
+    return
+  }
+  
+  // check here if we have won !!!!!
 
   areNeighborsBombs(clickedRow, clickedColumn)
 }
@@ -57,7 +74,15 @@ const allPossibleNeighbors = (row, column) => {
   ]
 }
 
-// location is
+function revealAllBombs() {
+  for (let i = 0; i < mines.length; i++) {
+    const mineRow = mines[i][0]
+    const mineColumn = mines[i][1]
+
+    document.getElementById(mineRow + ';' + mineColumn).classList.add('bomb')
+  }
+}
+
 function areNeighborsBombs(row, column) {
   let bombCounter = 0
   const neighbors = allPossibleNeighbors(row, column)
@@ -81,10 +106,10 @@ function areNeighborsBombs(row, column) {
     counterColor = 'box--green'
   }
 
-  document.getElementById(row + ';' + column).classList.add(counterColor)
-
-  // If we had bombs no recursion
+  // If we had bombs no recursion and we open
   if (bombCounter > 0) {
+    document.getElementById(row + ';' + column).classList.add(counterColor)
+    document.getElementById(row + ';' + column).classList.add('opened-box')
     document.getElementById(row + ';' + column).innerHTML = bombCounter
     return
   }
@@ -92,13 +117,31 @@ function areNeighborsBombs(row, column) {
   // Here no neighbor bombs were found,
   // We "open" current box as box without bombs and
   // we check on the other neighbors
-
   document.getElementById(row + ';' + column).classList.add('boxWithoutBomb')
 
   for (let idx = 0; idx < neighbors.length; idx++) {
     const neighborRow = neighbors[idx].row
     const neighborColumn = neighbors[idx].column
-    areNeighborsBombs(neighborRow, neighborColumn)
+
+    const neighborElement = document.getElementById(
+      neighborRow + ';' + neighborColumn
+    )
+    const hasBeenVisited =
+      neighborElement && neighborElement.classList.contains('boxWithoutBomb')
+
+    const hasFlags =
+      neighborElement && neighborElement.classList.contains('flag')
+
+    if (
+      neighborRow < ROWS &&
+      neighborRow >= 0 &&
+      neighborColumn < COLUMNS &&
+      neighborColumn >= 0 &&
+      !hasBeenVisited &&
+      !hasFlags
+    ) {
+      areNeighborsBombs(neighborRow, neighborColumn)
+    }
   }
 }
 

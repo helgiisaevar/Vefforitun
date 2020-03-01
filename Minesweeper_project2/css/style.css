@@ -53,10 +53,14 @@ button {
   display: flex;
 }
 
+.disabled {
+  pointer-events: none;
+}
+
 .box {
   background-color: #c0c0c0;
-  width: 30px;
-  height: 30px;
+  width: 32px;
+  height: 32px;
   border: 2px outset #ececec;
   display: flex;
   justify-content: center;
@@ -79,6 +83,18 @@ button {
   color: green;
 }
 
+.bomb {
+  background: url('../assets/bomb.png') no-repeat center #eee;
+  cursor: not-allowed;
+  background-color: #ffa7a7;
+  background-size: 22px;
+}
+
+.flag {
+  background: url('../assets/flag.png') no-repeat center #eee;
+  background-size: 22px;
+}
+
 .boxWithoutBomb {
   cursor: default;
   background-color: #f7f7f7 !important;
@@ -91,8 +107,4 @@ button {
 
 .rowOfBoxesNotFlex {
   display: inline;
-}
-
-.red {
-  background-color: red !important;
 }

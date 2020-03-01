@@ -4,17 +4,18 @@ let MINES;
 
 function fetchMinesweeperBoardFromServer(rows, cols, mines) {
   var url = "https://veff213-minesweeper.herokuapp.com/api/v1/minesweeper";
-
+  console.log(rows)
+  console.log(mines)
   ROWS = parseInt(document.getElementById(rows).value);
   COLUMNS = parseInt(document.getElementById(cols).value);
   MINES = parseInt(document.getElementById(mines).value);
 
   validation = validateInput(ROWS, COLUMNS, MINES);
-  if (validation < 0){
+  if (validation < 0) {
     return;
   }
-
-  var paramValue = {"rows":ROWS, "cols":COLUMNS,"mines": MINES}
+  console.log(ROWS)
+  var paramValue = { rows: ROWS, cols: COLUMNS, mines: MINES };
 
   return axios
     .post(url, paramValue)
@@ -29,25 +30,42 @@ function fetchMinesweeperBoardFromServer(rows, cols, mines) {
     })
     .catch(error => {
       //When unsuccessful, print the error and make the default board
-      console.log(error + " my error by raggi");
-     // generateDefaultBoard();
+      console.log(error + " ERROR");
+      // generateDefaultBoard();
     });
 }
 
-function validateInput(rowCount, columCount, mineCount){
-  if(rowCount* columCount < mineCount){
-      document.getElementById("errorMsg").style.display = "inline"
-      document.getElementById("errorMsg").innerHTML = "too many mines, please input less mines"
-      return -1;
+function validateInput(rowCount, columCount, mineCount) {
+  if (rowCount * columCount < mineCount) {
+    document.getElementById("errorMsg").style.display = "inline";
+    document.getElementById("errorMsg").innerHTML =
+      "too many mines, please input less mines";
+    return -1;
   }
 
-  if(rowCount > 40 || rowCount < 0 || columCount > 40 || columCount < 0 || mineCount > 1600 || mineCount < 0  ){
-      document.getElementById("errorMsg").style.display = "inline"
-      document.getElementById("errorMsg").innerHTML = "you can not have more then 40 rows and 40 columns and more then 1600 mines"
-      return -1;
+  if (
+    rowCount > 40 ||
+    rowCount < 0 ||
+    columCount > 40 ||
+    columCount < 0 ||
+    mineCount > 1600 ||
+    mineCount < 0
+  ) {
+    document.getElementById("errorMsg").style.display = "inline";
+    document.getElementById("errorMsg").innerHTML =
+      "you can not have more then 40 rows and 40 columns and more then 1600 mines";
+    return -1;
   }
 
-  document.getElementById("errorMsg").style.display = "none"
+  if (isNaN(rowCount) || isNaN(columCount) || isNaN(mineCount)) {
+    console.log("this is running");
+    rowCount = 10;
+    columCount = 10;
+    mineCount = 2;
+    fetchMinesweeperBoardFromServer(5, 5, 3);
+    return 1;
+  }
+
+  document.getElementById("errorMsg").style.display = "none";
   return 1;
 }
-

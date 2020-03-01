@@ -8,6 +8,15 @@ function validateInput(rowCount, columCount, mineCount){
         document.getElementById("errorMsg").style.display = "inline"
         return -1;
     }
+    if (isNaN(rowCount) || isNaN(columCount)|| isNaN(mineCount)){
+        document.getElementById("errorMsg").style.display = "none"
+        console.log('this is running')
+        rowCount = 10;
+        columCount=10;
+        mineCount=2;
+        fetchMinesweeperBoardFromServer(10, 10, 3)
+        return 1;
+      }
 
     document.getElementById("errorMsg").style.display = "none"
     return 1;

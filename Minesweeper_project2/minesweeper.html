@@ -14,21 +14,25 @@
 
 <body>
   <h1 id="changeMe">Mineswepper</h1>
+  <div class='overViewBox'>
   <div class="inputFields"> 
-      <p>Row: <input id="rowCount" type='number' min='1' max='40'></input></p>
-      <p>Columns: <input id="columCount" type='number' min='1'max='40'></input></p>
-      <p>Mines: <input id="mineCount" type='number' min='0' max='1600'></input></p></div>
-      <div>
-          <button type='button' class='boardButton' onclick="fetchMinesweeperBoardFromServer('rowCount', 'columCount', 'mineCount')">Generate Mineswepper Board</button></div>
-  <div id="errorMsg">
+      <div class='rowAndColumns'>
+        <div class='mainRow'>
+      <p>Row: <input id="rowCount" type='number' min='1' max='40'>  </input></p></div>
+      <div class='mainColmn'>
+      <p>Columns: <input id="columCount" type='number' min='1'max='40'></input></p></div></div>
+      <p>Mines: <input id="mineCount" type='number' min='0' max='1600'></input></p>
+        <div class='boardButton'>
+          <button onclick="fetchMinesweeperBoardFromServer('rowCount', 'columCount', 'mineCount')">Generate Minesweeper Board</button>
+  </div>
+<div id="errorMsg">
     you can not have more then 40 rows and 40 columns and more then 1600 mines
   </div>
-  
-
   <h2 id='loser-title'></h2>
-
-  <div id="minesweeper_board"></div>
-
+</div>
+  <div class='minesweeperBoard'>
+  <div id="minesweeper_board"></div></div>
+</div>
   
 
   <script src="./js/utils/boxClicked.js"></script>

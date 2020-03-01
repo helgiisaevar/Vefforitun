@@ -75,9 +75,9 @@ const allPossibleNeighbors = (row, column) => {
 }
 
 function revealAllBombs() {
-  for (let i = 0; i < mines.length; i++) {
-    const mineRow = mines[i][0]
-    const mineColumn = mines[i][1]
+  for (let i = 0; i < MINES.length; i++) {
+    const mineRow = MINES[i][0]
+    const mineColumn = MINES[i][1]
 
     document.getElementById(mineRow + ';' + mineColumn).classList.add('bomb')
   }
@@ -146,9 +146,9 @@ function areNeighborsBombs(row, column) {
 }
 
 function isLocationABomb(row, column) {
-  for (let i = 0; i < mines.length; i++) {
-    const mineRow = mines[i][0]
-    const mineColumn = mines[i][1]
+  for (let i = 0; i < MINES.length; i++) {
+    const mineRow = MINES[i][0]
+    const mineColumn = MINES[i][1]
 
     if (mineRow === row && mineColumn === column) {
       return true

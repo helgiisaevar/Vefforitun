@@ -29,50 +29,86 @@ const boxClicked = event => {
   areNeighborsBombs(clickedRow, clickedColumn)
 }
 
-const allPossibleNeighbors = (row, column) => {
-  return [
-    // Above neighbor
-    {
-      row: row - 1,
-      column
-    },
-    // Above right diagonal
-    {
-      row: row - 1,
-      column: column + 1
-    },
-    // Right sibling
-    {
-      row,
-      column: column + 1
-    },
-    // Bottom right diagonal
-    {
-      row: row + 1,
-      column: column + 1
-    },
-    // Bottom neighbor
-    {
-      row: row + 1,
-      column
-    },
-    // Bottom left diagonal
-    {
-      row: row + 1,
-      column: column - 1
-    },
-    // Left sibling
-    {
-      row,
-      column: column - 1
-    },
-    // Top left diagonal
-    {
-      row: row - 1,
-      column: column - 1
+// const allPossibleNeighbors = (row, column) => {
+//   return [
+//     // Above neighbor
+//     {
+//       row: row - 1,
+//       column
+//     },
+//     // Above right diagonal
+//     {
+//       row: row - 1,
+//       column: column + 1
+//     },
+//     // Right sibling
+//     {
+//       row,
+//       column: column + 1
+//     },
+//     // Bottom right diagonal
+//     {
+//       row: row + 1,
+//       column: column + 1
+//     },
+//     // Bottom neighbor
+//     {
+//       row: row + 1,
+//       column
+//     },
+//     // Bottom left diagonal
+//     {
+//       row: row + 1,
+//       column: column - 1
+//     },
+//     // Left sibling
+//     {
+//       row,
+//       column: column - 1
+//     },
+//     // Top left diagonal
+//     {
+//       row: row - 1,
+//       column: column - 1
+//     }
+//   ]
+// }
+
+function allPossibleNeighbors (row, column){
+  var retList = [];
+  //var dest = {row: row, column: column}
+  if (column + 1 < COLUMNS){
+    retList.push({row:row, column: column +1})
+    if (row +1 < ROWS){
+      retList.push({row: row +1, column: column +1})
     }
-  ]
+    if (row -1 >= 0){
+      retList.push({row:row -1, column: column +1})
+    }
+  }
+
+  if (row +1 < ROWS){
+    retList.push({row:row +1, column: column})
+  }
+
+  if (row -1 >= 0){
+    retList.push({row: row -1, column: column})
+  }
+
+  if(column -1 >= 0){
+    retList.push({row:row, column: column -1})
+    if (row +1 < ROWS){
+      retList.push({row:row +1, column: column -1})
+    }
+
+    if (row -1 >= 0){
+      retList.push({row:row -1, column: column -1})
+    }
+  }
+  return retList;
 }
+
+
 
 function revealAllBombs() {
   for (let i = 0; i < MINES.length; i++) {
@@ -85,7 +121,7 @@ function revealAllBombs() {
 
 function areNeighborsBombs(row, column) {
   let bombCounter = 0
-  const neighbors = allPossibleNeighbors(row, column)
+  var neighbors = allPossibleNeighbors(row, column)
 
   for (let idx = 0; idx < neighbors.length; idx++) {
     const neighborRow = neighbors[idx].row

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Minesweeper</title>
+  <meta charset="UTF-8" />
+  <link rel="stylesheet" href="./css/style.css" />
+  <link rel="shortcut icon" href="./assets/bomb.png" />
+  <link rel="shortcut icon" href="./assets/flag.png">
+
+  <!-- We need to import Axios in order to be able to use tde axios object below -->
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+
+<body>
+  <h1 id="changeMe">Mineswepper</h1>
+
+  <h2 id='loser-title'></h2>
+
+  <div id="minesweeper_board"></div>
+
+  <script src="./js/utils/boxClicked.js"></script>
+  <script src="./js/utils/boxRightClicked.js"></script>
+  <script src="./js/utils/createColumn.js"></script>
+  <script src="./js/utils/fetchMinesweeperBoardFromServer.js"></script>
+  <script src="./js/utils/generateBoard.js"></script>
+  <script src="./js/main.js"></script>
+</body>
+
+</html>

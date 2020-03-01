@@ -1,0 +1,110 @@
+.Box {
+  text-align: center;
+  padding-left: 20%;
+  padding-right: 20%;
+}
+
+.Header {
+  text-align: center;
+  background-color: #a2e5ff;
+  border: 3px solid black;
+}
+
+.Overview {
+  font-size: large;
+}
+
+/* input{
+    border: 1px solid black;
+    background-position: 20px 10px;
+} */
+
+#rowCount {
+  padding-left: 5px;
+  padding-right: 6px;
+}
+
+#columCount {
+  padding-left: 6px;
+  padding-right: 6px;
+}
+
+#mineCount {
+  padding-left: 5px;
+  padding-right: 6px;
+}
+
+button {
+  font-family: "MS Sans Serif";
+  text-align: left;
+  font-size: 14px;
+  height: 30px;
+  width: 100px;
+  background-color: #bfbfbf;
+  color: black;
+  border-bottom: 2px solid #7b7b7b;
+  border-left: 2px solid #ffffff;
+  border-top: 2px solid #ffffff;
+  border-right: 2px solid #7b7b7b;
+}
+
+
+#minesweeper_board {
+  display: flex;
+}
+
+.disabled {
+  pointer-events: none;
+}
+
+.box {
+  background-color: #c0c0c0;
+  width: 32px;
+  height: 32px;
+  border: 2px outset #ececec;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #484848;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.box--red {
+  color: red;
+}
+
+.box--blue {
+  color: blue;
+}
+
+.box--green {
+  color: green;
+}
+
+.bomb {
+  background: url('../assets/bomb.png') no-repeat center #eee;
+  cursor: not-allowed;
+  background-color: #ffa7a7;
+  background-size: 22px;
+}
+
+.flag {
+  background: url('../assets/flag.png') no-repeat center #eee;
+  background-size: 22px;
+}
+
+.boxWithoutBomb {
+  cursor: default;
+  background-color: #f7f7f7 !important;
+}
+
+.boxWrapper {
+  display: flex;
+  flex-direction: row;
+}
+
+.rowOfBoxesNotFlex {
+  display: inline;
+}

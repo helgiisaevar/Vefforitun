@@ -16,7 +16,8 @@ function didUserWin() {
     }
   }
 
-  let allMinesFlagged = true
+  let currentFlaggedInt = 0;
+  let allMinesFlagged = true;
 
   // Have all bombs been marked as flags
   for (let i = 0; i < MINES.length; i++) {
@@ -30,11 +31,16 @@ function didUserWin() {
     ) {
       allMinesFlagged = false
     }
+    else {
+      currentFlaggedInt +=1;
+    }
   }
 
-  if (haveAllBoxesBeenOpen && allMinesFlagged) {
+  if (haveAllBoxesBeenOpen && allMinesFlagged && currentFlaggedInt == FLAG_INT) {
+    FLAG_INT = 0;
     return true
   }
 
+  currentFlaggedInt = 0;
   return false
 }

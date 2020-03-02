@@ -1,3 +1,5 @@
+var FLAG_INT = 0;
+
 const boxRightClicked = () => {
   event.preventDefault()
   const clickedBox = event.target
@@ -15,18 +17,20 @@ const boxRightClicked = () => {
   if (hasFlags) {
     document
       .getElementById(clickedRow + ';' + clickedColumn)
-      .classList.remove('flag')
+      .classList.remove('flag');
+      FLAG_INT -=1;
     return
   }
 
   document
     .getElementById(clickedRow + ';' + clickedColumn)
-    .classList.add('flag')
+    .classList.add('flag');
+    FLAG_INT += 1;
 
   if (didUserWin()) {
     console.log(
       'USER HAS WON !!! I SHOULD REALLY DO SOMETHING IN THE HTML HERE TO SHOW THAT '
     )
-    document.getElementById('winning-title').innerHTML = 'YOU WON!'
+    document.getElementById('winning-title').innerHTML = 'YOU WON!';
   }
 }

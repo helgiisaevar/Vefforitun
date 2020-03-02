@@ -19,7 +19,7 @@ const boxClicked = event => {
     revealAllBombs()
 
     // Disable game over
-    document.getElementById('loser-title').innerHTML = 'YOU HAVE LOST ! :('
+    document.getElementById('loser-title').innerHTML = 'YOU LOST ! :('
 
     return
   }

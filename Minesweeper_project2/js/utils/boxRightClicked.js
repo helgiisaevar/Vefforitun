@@ -32,5 +32,6 @@ const boxRightClicked = () => {
       'USER HAS WON !!! I SHOULD REALLY DO SOMETHING IN THE HTML HERE TO SHOW THAT '
     )
     document.getElementById('winning-title').innerHTML = 'YOU WON!';
+    document.getElementById('minesweeper_board').classList = "disabled";
   }
 }

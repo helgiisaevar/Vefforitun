@@ -28,6 +28,7 @@ const boxRightClicked = () => {
     FLAG_INT += 1;
 
   if (didUserWin()) {
+    FLAG_INT = 0;
     document.getElementById('winning-title').innerHTML = 'YOU WON!';
     document.getElementById('minesweeper_board').classList = "disabled";
   }

@@ -23,99 +23,56 @@ const boxClicked = event => {
 
     return
   }
-  
-  // check here if we have won !!!!!
 
   areNeighborsBombs(clickedRow, clickedColumn)
+
+  if (didUserWin()) {
+    console.log(
+      'USER HAS WON !!! I SHOULD REALLY DO SOMETHING IN THE HTML HERE TO SHOW THAT '
+    )
+  }
 }
 
-// const allPossibleNeighbors = (row, column) => {
-//   return [
-//     // Above neighbor
-//     {
-//       row: row - 1,
-//       column
-//     },
-//     // Above right diagonal
-//     {
-//       row: row - 1,
-//       column: column + 1
-//     },
-//     // Right sibling
-//     {
-//       row,
-//       column: column + 1
-//     },
-//     // Bottom right diagonal
-//     {
-//       row: row + 1,
-//       column: column + 1
-//     },
-//     // Bottom neighbor
-//     {
-//       row: row + 1,
-//       column
-//     },
-//     // Bottom left diagonal
-//     {
-//       row: row + 1,
-//       column: column - 1
-//     },
-//     // Left sibling
-//     {
-//       row,
-//       column: column - 1
-//     },
-//     // Top left diagonal
-//     {
-//       row: row - 1,
-//       column: column - 1
-//     }
-//   ]
-// }
-
-function allPossibleNeighbors (row, column){
-  var retList = [];
+function allPossibleNeighbors(row, column) {
+  var retList = []
   //var dest = {row: row, column: column}
-  if (column + 1 < COLUMNS){
-    retList.push({row:row, column: column +1})
-    if (row +1 < ROWS){
-      retList.push({row: row +1, column: column +1})
+  if (column + 1 < COLUMNS) {
+    retList.push({ row: row, column: column + 1 })
+    if (row + 1 < ROWS) {
+      retList.push({ row: row + 1, column: column + 1 })
     }
-    if (row -1 >= 0){
-      retList.push({row:row -1, column: column +1})
+    if (row - 1 >= 0) {
+      retList.push({ row: row - 1, column: column + 1 })
     }
   }
 
-  if (row +1 < ROWS){
-    retList.push({row:row +1, column: column})
+  if (row + 1 < ROWS) {
+    retList.push({ row: row + 1, column: column })
   }
 
-  if (row -1 >= 0){
-    retList.push({row: row -1, column: column})
+  if (row - 1 >= 0) {
+    retList.push({ row: row - 1, column: column })
   }
 
-  if(column -1 >= 0){
-    retList.push({row:row, column: column -1})
-    if (row +1 < ROWS){
-      retList.push({row:row +1, column: column -1})
+  if (column - 1 >= 0) {
+    retList.push({ row: row, column: column - 1 })
+    if (row + 1 < ROWS) {
+      retList.push({ row: row + 1, column: column - 1 })
     }
 
-    if (row -1 >= 0){
-      retList.push({row:row -1, column: column -1})
+    if (row - 1 >= 0) {
+      retList.push({ row: row - 1, column: column - 1 })
     }
   }
-  return retList;
+  return retList
 }
-
-
 
 function revealAllBombs() {
   for (let i = 0; i < MINES.length; i++) {
     const mineRow = MINES[i][0]
     const mineColumn = MINES[i][1]
-    document.getElementById(mineRow + ';' + mineColumn).className = 'box opened-box bomb'
-    //document.getElementById(mineRow + ';' + mineColumn).classList.add('bomb')
+    document.getElementById(mineRow + ';' + mineColumn).className =
+      'box opened-box bomb'
   }
 }
 

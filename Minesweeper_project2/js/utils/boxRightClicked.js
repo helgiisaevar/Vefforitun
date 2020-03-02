@@ -22,4 +22,10 @@ const boxRightClicked = () => {
   document
     .getElementById(clickedRow + ';' + clickedColumn)
     .classList.add('flag')
+
+  if (didUserWin()) {
+    console.log(
+      'USER HAS WON !!! I SHOULD REALLY DO SOMETHING IN THE HTML HERE TO SHOW THAT '
+    )
+  }
 }

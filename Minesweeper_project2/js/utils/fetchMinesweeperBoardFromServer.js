@@ -22,6 +22,7 @@ function fetchMinesweeperBoardFromServer(rows, cols, mines) {
     .post(url, paramValue)
     .then(response => {
       generateBoard()
+      console.log('mines are at ' + response.data.board.minePositions);
       MINES = response.data.board.minePositions
       return response.data.board
     })

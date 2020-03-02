@@ -114,8 +114,8 @@ function revealAllBombs() {
   for (let i = 0; i < MINES.length; i++) {
     const mineRow = MINES[i][0]
     const mineColumn = MINES[i][1]
-
-    document.getElementById(mineRow + ';' + mineColumn).classList.add('bomb')
+    document.getElementById(mineRow + ';' + mineColumn).className = 'box opened-box bomb'
+    //document.getElementById(mineRow + ';' + mineColumn).classList.add('bomb')
   }
 }
 

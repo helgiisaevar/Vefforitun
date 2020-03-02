@@ -26,11 +26,16 @@ function fetchMinesweeperBoardFromServer(rows, cols, mines) {
       console.log(response.data);
       generateBoard();
       MINES = response.data.board.minePositions;
+      
+      
       return response.data.board;
     })
     .catch(error => {
       //When unsuccessful, print the error and make the default board
       console.log(error + " ERROR");
+      ROWS = 10
+      COLUMNS = 10
+      MINES = [[0,4], [0,6], [0,7], [3,1], [5,7], [6,4], [6,9], [7,6], [7,9],[9,2]]
       // generateDefaultBoard();
     });
 }
@@ -55,16 +60,16 @@ function validateInput(rowCount, columCount, mineCount) {
     document.getElementById("errorMsg").innerHTML =
       "you can not have more then 40 rows and 40 columns and more then 1600 mines";
     return -1;
-  }
+  } 
 
-  if (isNaN(rowCount) || isNaN(columCount) || isNaN(mineCount)) {
-    console.log("this is running");
-    rowCount = 10;
-    columCount = 10;
-    mineCount = 2;
-    fetchMinesweeperBoardFromServer(5, 5, 3);
-    return 1;
-  }
+  // if (isNaN(rowCount) || isNaN(columCount) || isNaN(mineCount)) {
+  //   console.log("this is running");
+  //   rowCount = 10;
+  //   columCount = 10;
+  //   mineCount = 2;
+  //   fetchMinesweeperBoardFromServer(5, 5, 3);
+  //   return 1;
+  // }
 
   document.getElementById("errorMsg").style.display = "none";
   return 1;

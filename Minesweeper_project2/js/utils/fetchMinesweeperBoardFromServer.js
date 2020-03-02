@@ -4,6 +4,8 @@ let MINES
 
 function fetchMinesweeperBoardFromServer(rows, cols, mines) {
   var url = 'https://veff213-minesweeper.herokuapp.com/api/v1/minesweeper'
+
+  console.log(parseInt(document.getElementById(rows).value))
   ROWS = parseInt(document.getElementById(rows).value)
   COLUMNS = parseInt(document.getElementById(cols).value)
   MINES = parseInt(document.getElementById(mines).value)
@@ -21,10 +23,10 @@ function fetchMinesweeperBoardFromServer(rows, cols, mines) {
     .then(response => {
       generateBoard()
       MINES = response.data.board.minePositions
-
       return response.data.board
     })
     .catch(error => {
+      document.getElementById('errorMsg').style.display
       //When unsuccessful, print the error and make the default board
       ROWS = 10
       COLUMNS = 10
@@ -40,7 +42,7 @@ function fetchMinesweeperBoardFromServer(rows, cols, mines) {
         [7, 9],
         [9, 2]
       ]
-      // generateDefaultBoard();
+      generateDefaultBoard(ROWS, COLUMNS);
     })
 }
 
@@ -65,6 +67,16 @@ function validateInput(rowCount, columnCount, mineCount) {
       'you can not have more then 40 rows and 40 columns and more then 1600 mines'
     return -1
   }
+  // if (isNaN(rowCount) || isNaN(columCount) || isNaN(mineCount)) {
+  //   console.log(rowCount)
+  //   document.getElementById('errorMsg').style.display = 'none'
+  //   rowCount = 10
+  //   console.log(rowCount)
+  //   columCount = 10
+  //   mineCount = 2
+  //   //validateInput(rowCount,columnCount,mineCount)
+  //   return rowCount,columnCount,mineCount
+  // }
 
   document.getElementById('errorMsg').style.display = 'none'
   return 1

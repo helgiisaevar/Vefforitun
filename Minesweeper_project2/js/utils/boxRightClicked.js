@@ -28,9 +28,6 @@ const boxRightClicked = () => {
     FLAG_INT += 1;
 
   if (didUserWin()) {
-    console.log(
-      'USER HAS WON !!! I SHOULD REALLY DO SOMETHING IN THE HTML HERE TO SHOW THAT '
-    )
     FLAG_INT = 0;
     document.getElementById('winning-title').innerHTML = 'YOU WON!';
     document.getElementById('minesweeper_board').classList = "disabled";

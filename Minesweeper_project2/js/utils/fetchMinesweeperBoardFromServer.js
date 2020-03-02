@@ -32,16 +32,16 @@ function fetchMinesweeperBoardFromServer(rows, cols, mines) {
       ROWS = 10
       COLUMNS = 10
       MINES = [
-        [0, 4],
-        [0, 6],
-        [0, 7],
-        [3, 1],
-        [5, 7],
-        [6, 4],
-        [6, 9],
-        [7, 6],
-        [7, 9],
-        [9, 2]
+        [3, 0],
+        [4, 2],
+        [1, 3],
+        [4, 5],
+        [4, 7],
+        [9, 3],
+        [9, 9],
+        [8, 9],
+        [7, 7],
+        [6, 9]
       ]
       generateDefaultBoard(ROWS, COLUMNS);
     })

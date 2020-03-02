@@ -48,7 +48,7 @@ function validateInput(rowCount, columnCount, mineCount) {
   if (rowCount * columnCount < mineCount) {
     document.getElementById('errorMsg').style.display = 'inline'
     document.getElementById('errorMsg').innerHTML =
-      'too many mines, please input less mines'
+      'Invalid input'
     return -1
   }
 

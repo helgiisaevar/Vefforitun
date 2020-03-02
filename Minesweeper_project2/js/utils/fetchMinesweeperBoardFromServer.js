@@ -3,6 +3,11 @@ let ROWS
 let MINES
 
 function fetchMinesweeperBoardFromServer(rows, cols, mines) {
+  document.getElementById('minesweeper_board').innerHTML = ""
+  document.getElementById('minesweeper_board').className = ""
+  document.getElementById('loser-title').innerHTML = ""
+  document.getElementById('winning-title').innerHTML = ""
+  FLAG_INT = 0;
   var url = 'https://veff213-minesweeper.herokuapp.com/api/v1/minesweeper'
 
   console.log(parseInt(document.getElementById(rows).value))
@@ -57,11 +62,11 @@ function validateInput(rowCount, columnCount, mineCount) {
 
   if (
     rowCount > 40 ||
-    rowCount < 0 ||
+    rowCount <= 0 ||
     columnCount > 40 ||
-    columnCount < 0 ||
+    columnCount <= 0 ||
     mineCount > 1600 ||
-    mineCount < 0
+    mineCount <= 0
   ) {
     document.getElementById('errorMsg').style.display = 'inline'
     document.getElementById('errorMsg').innerHTML =

@@ -1,0 +1,3 @@
+run npm install, to install dependencies -> this will create folders (node_modules & package-lock.json)
+    pls keep them in the gitignore
+run node index.js, to run the application

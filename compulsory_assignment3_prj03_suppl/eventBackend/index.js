@@ -1,3 +1,9 @@
+var express = require('express');
+var body_parser = require('body-parser');
+var cors = require('cors');
+const app = express();
+const port = 9000;
+
 //Sample data for Assignment 3
 
 //The following is an example of an array of two events. 
@@ -12,3 +18,15 @@ var bookings = [
     { id: 1, firstName: "Jane", lastName: "Doe", tel: "", email: "jane@doe.doe", spots: 1},
     { id: 2, firstName: "Meðaljón", lastName: "Jónsson", tel: "+3541111111", email: "mj@test.is", spots: 5}
 ];
+
+app.get('/', (req, res) =>{
+    res.status(200).send("hello there!")
+});
+
+app.get('/allEvents', (req, res) =>{
+    res.status(200).send(events)
+})
+
+app.listen(port, () => {
+    console.log("listening on port " + port)
+})

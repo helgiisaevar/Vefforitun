@@ -3,9 +3,10 @@ const assert = require('assert');
 var bodyParser = require('body-parser');
 var cors = require('cors');
 const app = express();
-const port = 3000;
+var PORT = process.env.PORT || 3000
 app.use(bodyParser.json());
-app.use("/api/v1", "/");
+const prefix = "/api/v1/"
+
 
 
 //Sample data for Assignment 3
@@ -24,7 +25,10 @@ app.use("/api/v1", "/");
 //     { id: 2, firstName: "Meðaljón", lastName: "Jónsson", tel: "+3541111111", email: "mj@test.is", spots: 5}
 // ];
 
-app.get('/api/v1', (req, res) =>{
+//function to validate data coming to the application
+//function __ (){}
+
+app.get(prefix, (req, res) =>{
     res.status(200).send("hello there!")
 });
 
@@ -33,8 +37,8 @@ app.get('/allEvents', (req, res) =>{
 })
 
 
-app.listen(port , () => {
-    console.log("listening on port " + port )
+app.listen(PORT , () => {
+    console.log("listening on port " + PORT )
 })
 
 //1. Read all events
@@ -52,7 +56,6 @@ app.listen(port , () => {
 
 
 //1. Read all bookings for an event
-
 
 //2. Read an individual booking
 

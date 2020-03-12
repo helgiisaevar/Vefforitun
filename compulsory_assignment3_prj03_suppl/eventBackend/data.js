@@ -1,0 +1,2 @@
+var bookings = [];
+var events = []

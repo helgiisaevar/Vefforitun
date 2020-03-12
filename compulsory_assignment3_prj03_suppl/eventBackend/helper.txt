@@ -1,3 +1,4 @@
 run npm install, to install dependencies be positioned in the eventBackend folder-> this will create folders (node_modules & package-lock.json)
     pls keep them in the gitignore
 run node index.js, to run the application
+run npm start, to run the application as well

@@ -2,3 +2,8 @@ run npm install, to install dependencies be positioned in the eventBackend folde
     pls keep them in the gitignore
 run node index.js, to run the application
 run npm start, to run the application as well
+
+--------------------------------------------
+how to use the app
+--------------------------------------------
+go to localhost:3000/api/v1/

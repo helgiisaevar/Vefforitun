@@ -104,6 +104,31 @@ app.get(prefix + 'events/:eventId/books', (req, res) => {
 
 
 //2. Read an individual booking
+app.get(prefix + 'events/:eventId/books/:bookId', (req, res) => {
+    //(res.status(200).json({"message": "u did it"})
+    for (let i= 0; i < events.length; i++){
+        if(events[i].id == req.params.eventId){
+            var currentBookings = events[i].bookings;
+            var bookingId;
+            if (currentBookings.includes(parseInt(req.params.bookId))){
+                bookingId = req.params.bookId;
+            
+                for (let y = 0; y< bookings.length; y++){
+                    if(bookings[y].id == (req.params.bookId)){
+                        retValue = bookings[y]
+                    }
+                    }
+                
+
+                if(retValue != null) {
+                    res.status(200).json(retValue);
+                    return;
+                }
+            }
+        };
+        };
+        res.status(404).json({"message": "event " + req.params.eventId +" has no bookings with id " + req.params.bookId})
+    })
 
 //3. Create a new booking
 

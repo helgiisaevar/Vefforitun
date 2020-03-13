@@ -18,12 +18,15 @@ var events = [
     { id: 1, name: "HarpFusion: Bach to the Future", description: "Harp ensemble", location: "Harpa, Hörpuhorn", capacity: 100, startDate: new Date(Date.UTC(2020, 02, 12, 15, 0)), endDate: new Date(Date.UTC(2020, 02, 12, 16, 0)), bookings: [] }
 ];
 
-//The following is an example of an array of three bookings.
+//bookings resource
 var bookings = [
     { id: 0, firstName: "John", lastName: "Doe", tel: "+3541234567", email: "", spots: 3},
     { id: 1, firstName: "Jane", lastName: "Doe", tel: "", email: "jane@doe.doe", spots: 1},
     { id: 2, firstName: "Meðaljón", lastName: "Jónsson", tel: "+3541111111", email: "mj@test.is", spots: 5}
 ];
+
+//bookings/event relation table
+var bookings_events_relations = [{0: 0}, {0: 1},{0: 2}];
 
 //function to validate data coming to the application
 //function __ (){}

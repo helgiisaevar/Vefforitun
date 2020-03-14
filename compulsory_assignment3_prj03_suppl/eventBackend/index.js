@@ -4,11 +4,10 @@ var bodyParser = require('body-parser');
 var cors = require('cors');
 const app = express();
 var PORT = process.env.PORT || 3000
-app.use(bodyParser.json());
 const prefix = "/api/v1/"
-
-
-
+var eventCounter = 2;
+var bookingCounter = 3;
+app.use(bodyParser.json());
 //Sample data for Assignment 3
 
 //maybe add HREF to link to a certaihn event
@@ -37,7 +36,14 @@ app.get(prefix, (req, res) =>{
 
 //1. Read all events
 app.get(prefix + 'events', (req, res) =>{
-    res.status(200).send(events)
+    var retArray = [];
+
+    for (let i = 0; i < events.length;i++){
+        var singleEvent = events[i];
+        retJson = {"name": singleEvent.name, "id": singleEvent.id, "capacity": singleEvent.capacity, "startDate": singleEvent.startDate, "endDate": singleEvent.endDate}
+        retArray.push(retJson);
+    }
+    res.status(200).send(retArray)
 })
 
 //2. Read an individual event
@@ -53,13 +59,47 @@ app.get(prefix + 'events/:eventId', (req, res) => {
     // res.status(200).send(events)
 })
 
+//3. Create a new event
+app.post(prefix + 'events/', (req, res) => {
+    var validation = validateEvent(req);
+    if (validation == ""){
+        var description = req.body.description;
+        var location = req.body.location;
+        if (description == undefined) {
+            description = "";
+        }
 
-app.listen(PORT , () => {
-    console.log("listening on port " + PORT )
+        if(location == undefined){
+            location = "";
+        }
+        let newEvent = {"id": eventCounter, "name": req.body.name, "description": description, "location": location, "capacity": req.body.capacity, "startDate": req.body.startDate, "endDate": req.body.endDate, "bookings": []}
+        res.status.send(201).json(newEvent)
+    }
+    res.status(400).send(validation);
+    
 })
 
-
-//3. Create a new event
+function validateEvent(req){
+    let name = req.body.name;
+    console.log(typeof name == "string");
+    if(name == undefined || !(typeof name == "string") || name == "" || name == " "){
+        return "error name not valid"
+    }
+    let capacity = req.body.capacity;
+    if(capacity == undefined || !(typeof capacity == "number") || capacity <= 0){
+        return "error capacity not valid"
+    }
+    let startDate = req.body.startDate;
+    if(startDate == undefined || !(typeof startDate == "date") ){
+        return "error invalid startDate"
+    }
+    let endDate = req.body.endDate;
+    if(endDate == undefined || !(typeof endDate == "date") ){
+        return "error invalid endDate"
+    }
+    return "";
+};
+    
 
 //4. Update an event
 
@@ -138,3 +178,7 @@ app.get(prefix + 'events/:eventId/books/:bookId', (req, res) => {
 //4. Delete a booking
 
 //5. Delete all bookings for an event
+
+app.listen(PORT , () => {
+    console.log("listening on port " + PORT )
+})

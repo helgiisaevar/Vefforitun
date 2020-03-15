@@ -7,8 +7,6 @@ var PORT = process.env.PORT || 3000
 app.use(bodyParser.json());
 const prefix = "/api/v1/"
 
-
-
 //Sample data for Assignment 3
 
 //maybe add HREF to link to a certaihn event
@@ -32,7 +30,7 @@ var bookings_events_relations = [{0: 0}, {0: 1},{0: 2}];
 //function __ (){}
 
 app.get(prefix, (req, res) =>{
-    res.status(200).send("hello there!")
+    res.status(200).send("THis works")
 });
 
 //1. Read all events
@@ -60,6 +58,14 @@ app.listen(PORT , () => {
 
 
 //3. Create a new event
+app.post(prefix + 'events/newevent', (req,res) => {
+    let event = {id: nextid, name: '', description: '', location: '', capacity: '', startDate: '', endDate:'', bookings:''};
+    nextid +=1;
+    events.push(event);
+    res.status(201).json(event)
+    
+})
+
 
 //4. Update an event
 
@@ -121,8 +127,6 @@ app.get(prefix + 'events/:eventId/books/:bookId', (req, res) => {
                         retValue = bookings[y]
                     }
                     }
-                
-
                 if(retValue != null) {
                     res.status(200).json(retValue);
                     return;

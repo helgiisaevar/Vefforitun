@@ -5,13 +5,10 @@ var cors = require('cors');
 const app = express();
 var PORT = process.env.PORT || 3000
 const prefix = "/api/v1/"
-<<<<<<< HEAD
 
-=======
 var eventCounter = 2;
 var bookingCounter = 3;
 app.use(bodyParser.json());
->>>>>>> b3f176640c0a07135b0fe0503a0ccd8a71b70097
 //Sample data for Assignment 3
 
 //maybe add HREF to link to a certaihn event
@@ -29,10 +26,9 @@ var bookings = [
 ];
 
 //bookings/event relation table
-var bookings_events_relations = [{0: 0}, {0: 1},{0: 2}];
+    //{bookId: eventId}
+var bookingRelationToEvent = [{0: 0}, {1: 0}, {2: 0}]
 
-//function to validate data coming to the application
-//function __ (){}
 
 app.get(prefix, (req, res) =>{
     res.status(200).send("THis works")
@@ -52,22 +48,32 @@ app.get(prefix + 'events', (req, res) =>{
 
 //2. Read an individual event
 app.get(prefix + 'events/:eventId', (req, res) => {
-    for (let i= 0; i < events.length; i++){
-        if(events[i].id == req.params.eventId){
-            res.status(200).json(events.splice(i,1));
-            return;
-        }
+    event = getEvent(req.params.eventId);
+    event = event[0];
+    if(typeof event != "string"){
+        res.status(200).send(event);
+        return;
     }
-    res.status(404).json({"message": "id not found"})
-    // var theEvent = events[eventId]
-    // res.status(200).send(events)
+    res.status(404).json({"message": event})
+    return;
 })
 
 //3. Create a new event
 app.post(prefix + 'events/', (req, res) => {
-    var validation = validateEvent(req);
+    var validation = validateEventRequest(req);
     if (validation == ""){
-        var description = req.body.description;
+        newEvent = _createEvent(req, eventCounter);
+        events.push(newEvent);
+        eventCounter += 1;
+        res.status(201).send(newEvent);
+        return;
+    }
+    res.status(400).send(validation);
+    return;
+})
+
+function _createEvent(req, id){
+    var description = req.body.description;
         var location = req.body.location;
         if (description == undefined) {
             description = "";
@@ -76,26 +82,13 @@ app.post(prefix + 'events/', (req, res) => {
         if(location == undefined){
             location = "";
         }
-        let newEvent = {"id": eventCounter, "name": req.body.name, "description": description, "location": location, "capacity": req.body.capacity, "startDate": req.body.startDate, "endDate": req.body.endDate, "bookings": []}
-        res.status.send(201).json(newEvent)
-    }
-    res.status(400).send(validation);
-    
-})
+        startDate = toDateTime(req.body.startDate);
+        endDate = toDateTime(req.body.endDate);
+        let newEvent = {"id": id, "name": req.body.name, "description": description, "location": location, "capacity": req.body.capacity, "startDate": startDate, "endDate": endDate, "bookings": []}
+        return newEvent;
+}
 
-<<<<<<< HEAD
-
-//3. Create a new event
-app.post(prefix + 'events/newevent', (req,res) => {
-    let event = {id: nextid, name: '', description: '', location: '', capacity: '', startDate: '', endDate:'', bookings:''};
-    nextid +=1;
-    events.push(event);
-    res.status(201).json(event)
-    
-})
-
-=======
-function validateEvent(req){
+function validateEventRequest(req){
     let name = req.body.name;
     console.log(typeof name == "string");
     if(name == undefined || !(typeof name == "string") || name == "" || name == " "){
@@ -106,93 +99,150 @@ function validateEvent(req){
         return "error capacity not valid"
     }
     let startDate = req.body.startDate;
-    if(startDate == undefined || !(typeof startDate == "date") ){
+    let endDate = req.body.endDate;
+    let today = Math.floor(Date.now() / 1000);
+    //let today = 0;
+    console.log(today > startDate);
+    if(startDate == undefined || !(typeof startDate == "number") || startDate <= 0 || startDate >= endDate || startDate < today ){
         return "error invalid startDate"
     }
-    let endDate = req.body.endDate;
-    if(endDate == undefined || !(typeof endDate == "date") ){
+    if(endDate == undefined || !(typeof endDate == "number" || endDate <= 0 || endDate < today ) ){
         return "error invalid endDate"
     }
     return "";
 };
     
->>>>>>> b3f176640c0a07135b0fe0503a0ccd8a71b70097
+function toDateTime(secs) {
+    var t = new Date(1970, 0, 1); // Epoch
+    t.setSeconds(secs);
+    return t;
+}
 
 //4. Update an event
+app.put(prefix + 'events/:eventId', (req, res) => {
+    console.log(req.params.eventId)
+    // get index of the requested event, or return error that says it doesnt exist
+    var index = getEvent(req.params.eventId, index= true);
+    if (typeof index != "string"){
+        // //getting the object out of a list
+        // event = event[0];
+        let currentEvent = events[index];
+        if(currentEvent.bookings.length == 0){
+            var validation = validateEventRequest(req);
+            if (validation == ""){
+                var newEvent = _createEvent(req, req.params.eventId);
+                //replace event
+                events[index] = newEvent;
+                res.status(200).send(newEvent);
+                return
+            }
+            res.status(400).json({"message": validation})
+            return;
+        }
+        res.status(400).json({"message": "event contains bookings"})
+        return;
+    }
+    res.status(404).json({"message": index})
+    return;
+})
+
+function getEvent(eventId, index = false ){
+    if(eventId == undefined){
+        return "error: no eventId in request"
+    }
+
+    for (let i= 0; i < events.length; i++){
+        if(events[i].id == eventId){
+            if(index == true){
+                return i;
+            }
+            return events.splice(i,1);
+        }
+    }
+    return "error: eventId not found"
+}
+
 
 //5. Delete an event
 app.delete(prefix + 'events/:eventId', (req, res) => {
-    for (let i= 0; i < events.length; i++){
-        if(events[i].id == req.params.eventId){
-            res.status(200).json(events.splice(i,1));
+    var index = getEvent(req.params.eventId, index=true);
+    if (typeof index != "string"){
+        event = events[index];
+        if(event.bookings.length == 0){
+            events.splice(index);
+            res.status(200).send(event);
             return;
         }
+        res.status(400).json({"message": "error: event contains bookings and cannot be deleted"})
+        return;
+
     }
-    res.status(404).json({"message": "id not found"})
-    // var theEvent = events[eventId]
-    // res.status(200).send(events)
+    res.status(404).json({"message": index})
+    return;
 })
 
 
 //6. Delete all events
-
+//finish doing "delete bookings"
 
 
 //1. Read all bookings for an event
 //might have to change this soon
-app.get(prefix + 'events/:eventId/books', (req, res) => {
-    //(res.status(200).json({"message": "u did it"})
-    for (let i= 0; i < events.length; i++){
-        if(events[i].id == req.params.eventId){
-            var retArray = [];
-            var currentBookings = events[i].bookings;
-
-            for (let y = 0; y< bookings.length; y++){
-                if(currentBookings.includes(bookings[y].id)){
-                    retArray.push(bookings[y]) 
-                }
-            };
-
-            if(retArray.length > 0) {
-                res.status(200).json(retArray);
-                return;
-            }
-        };
+app.get(prefix + 'events/:eventId/bookings', (req, res) => {
+    event = getEvent(req.params.eventId);
+    if (typeof event != "string"){
+        event = event[0];
+        retArray = [];
+        for(let i=0; i < event.bookings.length; i++){
+            currentBooking = getBooking(event.bookings[i]);
+            retArray.push(currentBooking);
+        }
+        res.status(200).send(retArray);
+        return;
     }
-    res.status(404).json({"message": "event has no bookings"})
+    res.status(404).json({"message": event})
+    return;
 })
 
+function getBooking(bookingId, index=false){
+    for (let i= 0 ; i < bookings.length; i++){
+        currBooking = bookings[i];
+        if (currBooking.id == bookingId){
+            if(index == true){
+                return i;
+            }
+            return currBooking;
+        }
+    }
+    return "error: Id of the booking was not found"
+}
 
 //2. Read an individual booking
-app.get(prefix + 'events/:eventId/books/:bookId', (req, res) => {
-    //(res.status(200).json({"message": "u did it"})
-    for (let i= 0; i < events.length; i++){
-        if(events[i].id == req.params.eventId){
-            var currentBookings = events[i].bookings;
-            var bookingId;
-            if (currentBookings.includes(parseInt(req.params.bookId))){
-                bookingId = req.params.bookId;
-            
-                for (let y = 0; y< bookings.length; y++){
-                    if(bookings[y].id == (req.params.bookId)){
-                        retValue = bookings[y]
-                    }
-                    }
-                if(retValue != null) {
-                    res.status(200).json(retValue);
-                    return;
-                }
-            }
-        };
-        };
-        res.status(404).json({"message": "event " + req.params.eventId +" has no bookings with id " + req.params.bookId})
-    })
+app.get(prefix + 'events/:eventId/bookings/:bookId', (req, res) => {
+    event = getEvent(req.params.eventId);
+    if (typeof event != "string"){
+        booking = getBooking(req.params.bookId);
+
+        if(typeof booking != "string"){
+            res.status(200).send(booking);
+            return;
+        }
+        res.status(404).json({"message": booking});
+        return;
+    }
+    res.status(404).json({"message": event});
+    return;
+});
 
 //3. Create a new booking
 
 //4. Delete a booking
 
 //5. Delete all bookings for an event
+
+app.use('*', (req, res) => {
+    res.status(405).send('Operation not supported.');
+});
 
 app.listen(PORT , () => {
     console.log("listening on port " + PORT )

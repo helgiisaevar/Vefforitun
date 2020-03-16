@@ -29,7 +29,6 @@ app.get(prefix, (req, res) =>{
     res.status(200).send("connected to the api")
 });
 
-
 //
 //ALL EVENT BASED ENDPOINTS
 //
@@ -211,16 +210,18 @@ app.delete(prefix + 'events/:eventId/bookings/:bookingId', (req, res) => {
     if(typeof index != "string"){
         var bookingIndex = getBooking(req.params.bookingId, true);
         if(typeof bookingIndex != "string"){
-            var booking = bookings[bookingIndex];
-            bookings.splice(bookingIndex, 1);
             var currentBookings = events[index].bookings;
             for (let i = 0; i < currentBookings.length; i++){
                 if(currentBookings[i] == bookingIndex){
                     events[index].bookings.splice(i,1);
+                    var booking = bookings[bookingIndex];
+                    bookings.splice(bookingIndex, 1);
+                    res.status(200).send(booking)
+                    return;
                 }
             }
-            
-            res.status(200).send(booking)
+            res.status(400).json({"message": "event does not hold the asked for booking"})
+            return;
         }
         res.status(404).json({"message": bookingIndex});
         return;

@@ -27,7 +27,7 @@ var bookings = [
 
 //bookings/event relation table
     //{bookId: eventId}
-var bookingRelationToEvent = [{0: 0}, {1: 0}, {2: 0}]
+//var bookingRelationToEvent = [{0: 0}, {1: 0}, {2: 0}] 
 
 
 app.get(prefix, (req, res) =>{
@@ -49,7 +49,7 @@ app.get(prefix + 'events', (req, res) =>{
 //2. Read an individual event
 app.get(prefix + 'events/:eventId', (req, res) => {
     event = getEvent(req.params.eventId);
-    event = event[0];
+ 
     if(typeof event != "string"){
         res.status(200).send(event);
         return;
@@ -156,7 +156,8 @@ function getEvent(eventId, index = false ){
             if(index == true){
                 return i;
             }
-            return events.splice(i,1);
+            // return events.slice(i,1);
+            return events[i];
         }
     }
     return "error: eventId not found"
@@ -169,7 +170,7 @@ app.delete(prefix + 'events/:eventId', (req, res) => {
     if (typeof index != "string"){
         event = events[index];
         if(event.bookings.length == 0){
-            events.splice(index);
+            events.splice(index, 1);
             res.status(200).send(event);
             return;
         }
@@ -189,9 +190,8 @@ app.delete(prefix + 'events/:eventId', (req, res) => {
 //1. Read all bookings for an event
 //might have to change this soon
 app.get(prefix + 'events/:eventId/bookings', (req, res) => {
-    event = getEvent(req.params.eventId);
+    var event = getEvent(req.params.eventId);
     if (typeof event != "string"){
-        event = event[0];
         retArray = [];
         for(let i=0; i < event.bookings.length; i++){
             currentBooking = getBooking(event.bookings[i]);
@@ -235,10 +235,144 @@ app.get(prefix + 'events/:eventId/bookings/:bookId', (req, res) => {
 });
 
 //3. Create a new booking
+app.post(prefix + 'events/:eventId/bookings/', (req, res) => {
+    var index = getEvent(req.params.eventId, index=true);
+    if (typeof index != "string"){
+        event = events[index];
+        var bookedSpots = getBookedSpots(event.bookings);
+        var validation = validateBookingReq(req, bookedSpots, event.capacity);
+        if(validation == ""){
+            newBooking = _createBooking(req, bookingCounter);
+            bookings.push(newBooking);
+            events[index].bookings.push(newBooking.id);
+            newRelation = {bookingCounter: event.id}
+            //bookingRelationToEvent.push(newRelation);
+            bookingCounter +=1;
+            res.status(201).send(newBooking);
+            return;
+        }
+        res.status(400).json({"message": validation})
+        return;
+    }
+    //res.status(201).send("got it")
+    res.status(400).json({"message": index})
+    return;
+})
 
+function _createBooking(req, id){
+    var tel = req.body.tel;
+    var email = req.body.email;
+
+    if(tel == undefined){
+        tel = "";
+    }
+    else{
+        tel = tel.toString();
+    }
+    if(email == undefined){
+        email = "";
+    }
+
+    newBooking = {"id": id, "firstName": req.body.firstName, "lastName": req.body.lastName, "tel": tel, "email": email, "spots": req.body.spots}
+    return newBooking;
+}
+
+function getBookedSpots(bookingsList){
+    var count = 0;
+
+    for (let i =0; i < bookingsList.length; i++){
+        booking = getBooking(i);
+        if(typeof booking != "string"){
+            count += booking.spots;
+        }
+    }
+    return count;
+}
+
+function validateBookingReq(req, bookedSpots, capacity){
+    let firstName = req.body.firstName;
+    let lastName = req.body.lastName;
+    let spots = req.body.spots;
+    let tel = req.body.tel;
+    let email = req.body.email;
+    if(email == undefined && tel== undefined){
+        return "error: you need email or/and tel in body"
+    }
+    if(typeof firstName != "string" || firstName == "" || firstName== " "){
+        return "error: invalid firstName"
+    }
+    if(typeof lastName != "string" || lastName == "" || lastName== " "){
+        return "error: invalid lastName"
+    }
+    if(typeof spots != "number" || spots <=0){
+        return "error: invalid spots"
+    }
+    if(spots + bookedSpots > capacity){
+        return "error: to many spots, goes beyond the event's capacity"
+    }
+    if(tel != undefined){
+        if (typeof tel == "number" && tel.toString().length < 5 ){
+            return "error: invalid tel"
+        }
+        if(typeof tel == "string"){
+            try {
+                parseInt(tel)
+            } catch (error) {
+                return "error: tel not a phonenumber"
+            }
+        }
+    }
+    if(email != undefined){
+        if(typeof email != "string" || !email.includes("@") || !email.includes(".")){
+            return "error: invalid email"
+        }
+    }
+    return "";
+
+}
 //4. Delete a booking
+app.delete(prefix + 'events/:eventId/bookings/:bookingId', (req, res) => {
+    var index = getEvent(req.params.eventId, index=true);
+    if(typeof index != "string"){
+        var bookingIndex = getBooking(req.params.bookingId, true);
+        if(typeof bookingIndex != "string"){
+            var booking = bookings[bookingIndex];
+            bookings.splice(bookingIndex, 1);
+            var currentBookings = events[index].bookings;
+            for (let i = 0; i < currentBookings.length; i++){
+                if(currentBookings[i] == bookingIndex){
+                    events[index].bookings.splice(i,1);
+                }
+            }
+            
+            res.status(200).send(booking)
+        }
+        res.status(404).json({"message": bookingIndex});
+        return;
+    }
+    res.status(404).json({"message": index});
+    return
+})
+
 
 //5. Delete all bookings for an event
+app.delete(prefix + 'events/:eventId/bookings/', (req, res) => {
+    var index = getEvent(req.params.eventId, true);
+    if (typeof index != "string"){
+        var retArray = [];
+        for (let i = 0; i < events[index].bookings.length;i++){
+            bookingIndex = getBooking(events[index].bookings[i], true);
+            retArray.push(bookings[bookingIndex]);
+            bookings.splice(bookingIndex, 1);
+        }
+        events[index].bookings = [];
+        res.status(200).send(retArray);
+        return;
+    }
+    res.status(404).json({"message": index})
+    return;
+})
+
 
 app.use('*', (req, res) => {
     res.status(405).send('Operation not supported.');

@@ -95,7 +95,7 @@ function validateEventRequest(req){
         return "error name not valid"
     }
     let capacity = req.body.capacity;
-    if(capacity == undefined || !(typeof capacity == "number") || capacity <= 0){
+    if(capacity == undefined || !(typeof capacity == "number") || capacity < 0){
         return "error capacity not valid"
     }
     let startDate = req.body.startDate;
@@ -184,7 +184,32 @@ app.delete(prefix + 'events/:eventId', (req, res) => {
 
 
 //6. Delete all events
-//finish doing "delete bookings"
+app.delete(prefix + 'events/', (req, res) => {
+    var retEvents = [];
+    var retBookings = [];
+    for (let i = 0; i < events.length; i++){
+        var event = events[i];
+        //event = JSON.stringify(event);
+        var currentBookings = events[i].bookings;
+        for (let y = 0; y < currentBookings.length; y++){
+            var booking = getBooking(currentBookings[y]);
+            var key = currentBookings[y];
+            key = key.toString();
+            retBookings.push([key, booking]);
+            //booking = JSON.stringify(booking);
+        }
+        events[i].bookings = retBookings;
+        retBookings = [];
+        retEvents.push(event)
+        
+    }
+
+    
+    events = [];
+    bookings = [];
+    res.status(200).send(retEvents);
+    return
+})
 
 
 //1. Read all bookings for an event

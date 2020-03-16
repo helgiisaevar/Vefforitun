@@ -25,15 +25,14 @@ var bookings = [
     { id: 2, firstName: "Meðaljón", lastName: "Jónsson", tel: "+3541111111", email: "mj@test.is", spots: 5}
 ];
 
-//bookings/event relation table
-    //{bookId: eventId}
-//var bookingRelationToEvent = [{0: 0}, {1: 0}, {2: 0}] 
-
-
 app.get(prefix, (req, res) =>{
-    res.status(200).send("THis works")
+    res.status(200).send("connected to the api")
 });
 
+
+//
+//ALL EVENT BASED ENDPOINTS
+//
 //1. Read all events
 app.get(prefix + 'events', (req, res) =>{
     var retArray = [];
@@ -72,52 +71,6 @@ app.post(prefix + 'events/', (req, res) => {
     return;
 })
 
-function _createEvent(req, id){
-    var description = req.body.description;
-        var location = req.body.location;
-        if (description == undefined) {
-            description = "";
-        }
-
-        if(location == undefined){
-            location = "";
-        }
-        startDate = toDateTime(req.body.startDate);
-        endDate = toDateTime(req.body.endDate);
-        let newEvent = {"id": id, "name": req.body.name, "description": description, "location": location, "capacity": req.body.capacity, "startDate": startDate, "endDate": endDate, "bookings": []}
-        return newEvent;
-}
-
-function validateEventRequest(req){
-    let name = req.body.name;
-    console.log(typeof name == "string");
-    if(name == undefined || !(typeof name == "string") || name == "" || name == " "){
-        return "error name not valid"
-    }
-    let capacity = req.body.capacity;
-    if(capacity == undefined || !(typeof capacity == "number") || capacity < 0){
-        return "error capacity not valid"
-    }
-    let startDate = req.body.startDate;
-    let endDate = req.body.endDate;
-    let today = Math.floor(Date.now() / 1000);
-    //let today = 0;
-    console.log(today > startDate);
-    if(startDate == undefined || !(typeof startDate == "number") || startDate <= 0 || startDate >= endDate || startDate < today ){
-        return "error invalid startDate"
-    }
-    if(endDate == undefined || !(typeof endDate == "number" || endDate <= 0 || endDate < today ) ){
-        return "error invalid endDate"
-    }
-    return "";
-};
-    
-function toDateTime(secs) {
-    var t = new Date(1970, 0, 1); // Epoch
-    t.setSeconds(secs);
-    return t;
-}
-
 //4. Update an event
 app.put(prefix + 'events/:eventId', (req, res) => {
     console.log(req.params.eventId)
@@ -146,24 +99,6 @@ app.put(prefix + 'events/:eventId', (req, res) => {
     return;
 })
 
-function getEvent(eventId, index = false ){
-    if(eventId == undefined){
-        return "error: no eventId in request"
-    }
-
-    for (let i= 0; i < events.length; i++){
-        if(events[i].id == eventId){
-            if(index == true){
-                return i;
-            }
-            // return events.slice(i,1);
-            return events[i];
-        }
-    }
-    return "error: eventId not found"
-}
-
-
 //5. Delete an event
 app.delete(prefix + 'events/:eventId', (req, res) => {
     var index = getEvent(req.params.eventId, index=true);
@@ -181,7 +116,6 @@ app.delete(prefix + 'events/:eventId', (req, res) => {
     res.status(404).json({"message": index})
     return;
 })
-
 
 //6. Delete all events
 app.delete(prefix + 'events/', (req, res) => {
@@ -203,17 +137,17 @@ app.delete(prefix + 'events/', (req, res) => {
         retEvents.push(event)
         
     }
-
-    
     events = [];
     bookings = [];
     res.status(200).send(retEvents);
     return
 })
 
+//
+//BOOKINGS PART OF THE PROGRAM
+//
 
 //1. Read all bookings for an event
-//might have to change this soon
 app.get(prefix + 'events/:eventId/bookings', (req, res) => {
     var event = getEvent(req.params.eventId);
     if (typeof event != "string"){
@@ -228,19 +162,6 @@ app.get(prefix + 'events/:eventId/bookings', (req, res) => {
     res.status(404).json({"message": event})
     return;
 })
-
-function getBooking(bookingId, index=false){
-    for (let i= 0 ; i < bookings.length; i++){
-        currBooking = bookings[i];
-        if (currBooking.id == bookingId){
-            if(index == true){
-                return i;
-            }
-            return currBooking;
-        }
-    }
-    return "error: Id of the booking was not found"
-}
 
 //2. Read an individual booking
 app.get(prefix + 'events/:eventId/bookings/:bookId', (req, res) => {
@@ -284,6 +205,67 @@ app.post(prefix + 'events/:eventId/bookings/', (req, res) => {
     return;
 })
 
+//4. Delete a booking
+app.delete(prefix + 'events/:eventId/bookings/:bookingId', (req, res) => {
+    var index = getEvent(req.params.eventId, index=true);
+    if(typeof index != "string"){
+        var bookingIndex = getBooking(req.params.bookingId, true);
+        if(typeof bookingIndex != "string"){
+            var booking = bookings[bookingIndex];
+            bookings.splice(bookingIndex, 1);
+            var currentBookings = events[index].bookings;
+            for (let i = 0; i < currentBookings.length; i++){
+                if(currentBookings[i] == bookingIndex){
+                    events[index].bookings.splice(i,1);
+                }
+            }
+            
+            res.status(200).send(booking)
+        }
+        res.status(404).json({"message": bookingIndex});
+        return;
+    }
+    res.status(404).json({"message": index});
+    return
+})
+
+//5. Delete all bookings for an event
+app.delete(prefix + 'events/:eventId/bookings/', (req, res) => {
+    var index = getEvent(req.params.eventId, true);
+    if (typeof index != "string"){
+        var retArray = [];
+        for (let i = 0; i < events[index].bookings.length;i++){
+            bookingIndex = getBooking(events[index].bookings[i], true);
+            retArray.push(bookings[bookingIndex]);
+            bookings.splice(bookingIndex, 1);
+        }
+        events[index].bookings = [];
+        res.status(200).send(retArray);
+        return;
+    }
+    res.status(404).json({"message": index})
+    return;
+})
+
+//
+//HELPER FUNCTIONS
+//
+
+//helper function
+function getBooking(bookingId, index=false){
+    for (let i= 0 ; i < bookings.length; i++){
+        currBooking = bookings[i];
+        if (currBooking.id == bookingId){
+            if(index == true){
+                return i;
+            }
+            return currBooking;
+        }
+    }
+    return "error: Id of the booking was not found"
+}
+
+//helper function
 function _createBooking(req, id){
     var tel = req.body.tel;
     var email = req.body.email;
@@ -302,6 +284,7 @@ function _createBooking(req, id){
     return newBooking;
 }
 
+//helper function
 function getBookedSpots(bookingsList){
     var count = 0;
 
@@ -314,6 +297,7 @@ function getBookedSpots(bookingsList){
     return count;
 }
 
+//helper function
 function validateBookingReq(req, bookedSpots, capacity){
     let firstName = req.body.firstName;
     let lastName = req.body.lastName;
@@ -353,51 +337,74 @@ function validateBookingReq(req, bookedSpots, capacity){
         }
     }
     return "";
-
 }
-//4. Delete a booking
-app.delete(prefix + 'events/:eventId/bookings/:bookingId', (req, res) => {
-    var index = getEvent(req.params.eventId, index=true);
-    if(typeof index != "string"){
-        var bookingIndex = getBooking(req.params.bookingId, true);
-        if(typeof bookingIndex != "string"){
-            var booking = bookings[bookingIndex];
-            bookings.splice(bookingIndex, 1);
-            var currentBookings = events[index].bookings;
-            for (let i = 0; i < currentBookings.length; i++){
-                if(currentBookings[i] == bookingIndex){
-                    events[index].bookings.splice(i,1);
-                }
+
+//helper function
+function getEvent(eventId, index = false ){
+    if(eventId == undefined){
+        return "error: no eventId in request"
+    }
+
+    for (let i= 0; i < events.length; i++){
+        if(events[i].id == eventId){
+            if(index == true){
+                return i;
             }
-            
-            res.status(200).send(booking)
+            // return events.slice(i,1);
+            return events[i];
         }
-        res.status(404).json({"message": bookingIndex});
-        return;
     }
-    res.status(404).json({"message": index});
-    return
-})
+    return "error: eventId not found"
+}
 
-
-//5. Delete all bookings for an event
-app.delete(prefix + 'events/:eventId/bookings/', (req, res) => {
-    var index = getEvent(req.params.eventId, true);
-    if (typeof index != "string"){
-        var retArray = [];
-        for (let i = 0; i < events[index].bookings.length;i++){
-            bookingIndex = getBooking(events[index].bookings[i], true);
-            retArray.push(bookings[bookingIndex]);
-            bookings.splice(bookingIndex, 1);
+//helper function
+function _createEvent(req, id){
+    var description = req.body.description;
+        var location = req.body.location;
+        if (description == undefined) {
+            description = "";
         }
-        events[index].bookings = [];
-        res.status(200).send(retArray);
-        return;
-    }
-    res.status(404).json({"message": index})
-    return;
-})
 
+        if(location == undefined){
+            location = "";
+        }
+        startDate = toDateTime(req.body.startDate);
+        endDate = toDateTime(req.body.endDate);
+        let newEvent = {"id": id, "name": req.body.name, "description": description, "location": location, "capacity": req.body.capacity, "startDate": startDate, "endDate": endDate, "bookings": []}
+        return newEvent;
+}
+
+//helper function
+function validateEventRequest(req){
+    let name = req.body.name;
+    console.log(typeof name == "string");
+    if(name == undefined || !(typeof name == "string") || name == "" || name == " "){
+        return "error name not valid"
+    }
+    let capacity = req.body.capacity;
+    if(capacity == undefined || !(typeof capacity == "number") || capacity < 0){
+        return "error capacity not valid"
+    }
+    let startDate = req.body.startDate;
+    let endDate = req.body.endDate;
+    let today = Math.floor(Date.now() / 1000);
+    //let today = 0;
+    console.log(today > startDate);
+    if(startDate == undefined || !(typeof startDate == "number") || startDate <= 0 || startDate >= endDate || startDate < today ){
+        return "error invalid startDate"
+    }
+    if(endDate == undefined || !(typeof endDate == "number" || endDate <= 0 || endDate < today ) ){
+        return "error invalid endDate"
+    }
+    return "";
+};
+    
+//helper function
+function toDateTime(secs) {
+    var t = new Date(1970, 0, 1); // Epoch
+    t.setSeconds(secs);
+    return t;
+}
 
 app.use('*', (req, res) => {
     res.status(405).send('Operation not supported.');

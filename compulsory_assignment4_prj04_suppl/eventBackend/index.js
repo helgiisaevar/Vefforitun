@@ -4,6 +4,7 @@ var Event = require('./models/event');
 var Booking = require('./models/booking');
 var mongoose = require('mongoose');
 var utility = require('./utility/objectIdChecker');
+const basicAuth = require('express-basic-auth')
 
 //Import a body parser module to be able to access the request body as json
 const bodyParser = require('body-parser');

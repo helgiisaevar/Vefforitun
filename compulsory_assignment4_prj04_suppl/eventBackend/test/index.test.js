@@ -58,11 +58,111 @@ describe('Endpoint tests', () => {
     it("GET /events", function (done) {
         //console.log('http://localhost:'+ port + apiPath + version)
         chai.request('http://localhost:'+ port + apiPath + version).get('/events').end( (err, res) => {
+            //Status code is 200
             chai.expect(res).to.have.status(200);
             chai.expect(res).to.have.header('Content-type', 'application/json; charset=utf-8');
+            
+            //The response body is in json format -> teacher's misspelled it, should be that the format is json, not  particularly the body
             chai.expect(res).to.be.json
-            chai.expect(res.body).to.be.a('Array')
+            
+            // The return type is an array
+            chai.expect(res.body).to.be.a('array')
+            
+            // The array contains the right amount of elements
             chai.expect(Object.keys(res.body).length).to.be.eql(1);
+            done();
+        });
+    });
+
+    it("GET /events/:eventId", function (done) {
+        //console.log('http://localhost:'+ port + apiPath + version)
+        chai.request('http://localhost:'+ port + apiPath + version).get('/events/' + eventId).end( (err, res) => {
+            // The status code shall be as expected (e.g., 200 for endpoint 1)
+            chai.expect(res).to.have.status(200);
+            chai.expect(res).to.have.header('Content-type', 'application/json; charset=utf-8');
+
+            // The response body is in json format
+            chai.expect(res).to.be.json
+
+            //No additional attributes are in the body
+            chai.expect(Object.keys(res.body).length).to.be.eql(8);
+        
+            //No additional attributes are in the body
+            chai.expect(Object.keys(res.body)[0]).to.be.eql('description');
+            chai.expect(Object.keys(res.body)[1]).to.be.eql('location');
+            chai.expect(Object.keys(res.body)[2]).to.be.eql('_id');
+            chai.expect(Object.keys(res.body)[3]).to.be.eql('name');
+            chai.expect(Object.keys(res.body)[4]).to.be.eql('capacity');
+            chai.expect(Object.keys(res.body)[5]).to.be.eql('startDate');
+            chai.expect(Object.keys(res.body)[6]).to.be.eql('endDate');
+            chai.expect(Object.keys(res.body)[7]).to.be.eql('bookings');
+
+            //Here asserting that there is no extra element/property
+            chai.expect(Object.keys(res.body)[8]).to.be.eql(undefined);
+
+            //The attributes have the expected values (you may exclude checking the dates for events)
+            chai.expect(res.body).to.have.property('description').eql('');
+            chai.expect(res.body).to.have.property('location').eql('');
+            chai.expect(res.body).to.have.property('_id').eql(eventId.toString());
+            chai.expect(res.body).to.have.property('name').eql("Test Event");
+            chai.expect(res.body).to.have.property('capacity').eql(10);
+            chai.expect(res.body).to.have.property('bookings').eql([bookingId.toString()]);
+            console.log(Object.keys(res.body)[1])
+            done();
+        });
+    });
+
+    it("GET /events/:eventId/bookings", function (done) {
+        //console.log('http://localhost:'+ port + apiPath + version)
+        chai.request('http://localhost:'+ port + apiPath + version).get('/events/' + eventId + '/bookings').end( (err, res) => {
+            //Status code is 200
+            chai.expect(res).to.have.status(200);
+            chai.expect(res).to.have.header('Content-type', 'application/json; charset=utf-8');
+            
+            //The response body is in json format -> teacher's misspelled it, should be that the format is json, not  particularly the body
+            chai.expect(res).to.be.json
+            
+            // The return type is an array
+            chai.expect(res.body).to.be.a('array')
+            
+            // The array contains the right amount of elements
+            chai.expect(Object.keys(res.body).length).to.be.eql(1);
+            done();
+        });
+    });
+
+    it("GET /events/:eventId/bookings/bookingId", function (done) {
+        //console.log('http://localhost:'+ port + apiPath + version)
+        chai.request('http://localhost:'+ port + apiPath + version).get('/events/' + eventId + '/bookings/' + bookingId).end( (err, res) => {
+            // The status code shall be as expected (e.g., 200 for endpoint 1)
+            chai.expect(res).to.have.status(200);
+            chai.expect(res).to.have.header('Content-type', 'application/json; charset=utf-8');
+
+            // The response body is in json format
+            chai.expect(res).to.be.json
+
+            //No additional attributes are in the body
+            chai.expect(Object.keys(res.body).length).to.be.eql(6);
+        
+            //No additional attributes are in the body
+            chai.expect(Object.keys(res.body)[0]).to.be.eql('tel');
+            chai.expect(Object.keys(res.body)[1]).to.be.eql('email');
+            chai.expect(Object.keys(res.body)[2]).to.be.eql('_id');
+            chai.expect(Object.keys(res.body)[3]).to.be.eql('firstName');
+            chai.expect(Object.keys(res.body)[4]).to.be.eql('lastName');
+            chai.expect(Object.keys(res.body)[5]).to.be.eql('spots');
+            
+            //Here asserting that there is no extra element/property
+            chai.expect(Object.keys(res.body)[6]).to.be.eql(undefined);
+
+            //The attributes have the expected values (you may exclude checking the dates for events)
+            chai.expect(res.body).to.have.property('tel').eql('');
+            chai.expect(res.body).to.have.property('email').eql("jane@doe.com");
+            chai.expect(res.body).to.have.property('_id').eql(bookingId.toString());
+            chai.expect(res.body).to.have.property('firstName').eql("Jane");
+            chai.expect(res.body).to.have.property('lastName').eql("Doe");
+            chai.expect(res.body).to.have.property('spots').eql(2);
+            console.log(Object.keys(res.body)[1])
             done();
         });
     });

@@ -1,0 +1,2 @@
+run npm test to start testing -> it also starts up the server so you can use postman while testing
+run npm start to start the server

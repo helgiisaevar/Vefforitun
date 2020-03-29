@@ -3,6 +3,10 @@ let server = require('../index');
 let mongoose = require("mongoose");
 let Event = require('../models/event');
 let Booking = require('../models/booking');
+const apiPath = '/api/';
+const version = 'v1';
+// var mongoURI = 'mongodb://localhost:27017/eventbackend';
+var port = process.env.PORT || 3000;
 
 //These are the actual modules we use
 let chai = require('chai');
@@ -48,5 +52,18 @@ describe('Endpoint tests', () => {
         console.log("Our event has id " + eventId);
         console.log("Our booking has id " + bookingId);
         chai.expect(1).to.equal(1);
+    });
+
+        
+    it("GET /events", function (done) {
+        //console.log('http://localhost:'+ port + apiPath + version)
+        chai.request('http://localhost:'+ port + apiPath + version).get('/events').end( (err, res) => {
+            chai.expect(res).to.have.status(200);
+            chai.expect(res).to.have.header('Content-type', 'application/json; charset=utf-8');
+            chai.expect(res).to.be.json
+            chai.expect(res.body).to.be.a('Array')
+            chai.expect(Object.keys(res.body).length).to.be.eql(1);
+            done();
+        });
     });
 });

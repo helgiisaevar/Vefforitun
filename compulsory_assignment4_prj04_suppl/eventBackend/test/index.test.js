@@ -180,4 +180,108 @@ describe('Endpoint tests', () => {
             done();
         });
     });
+
+    it("POST/events", function (done) {
+        chai.request('http://localhost:' + port + apiPath + version)
+            .post('/events/')
+            .set('Content-type', 'application/json')
+            .send({
+                "name": "Test event",
+                "capacity": 10,
+                "startDate": "2020-05-30T12:00:00.000Z",
+                "endDate": "2020-05-30T16:00:00.000Z",
+            })
+            .end((err, res) => {
+
+                // The status code shall be as expected (e.g., 201 for endpoint 1)
+                chai.expect(res).to.have.status(201);
+                chai.expect(res).to.have.header('Content-type', 'application/json; charset=utf-8');
+
+                // The response is in json format
+                chai.expect(res).to.be.json;
+
+                chai.expect(res.body).to.be.a('object')
+
+                //No additional attributes are in the body
+                chai.expect(Object.keys(res.body).length).to.be.eql(7);
+
+                //The right attributes are in the body
+                chai.expect(Object.keys(res.body)[0]).to.be.eql('name');
+                chai.expect(Object.keys(res.body)[1]).to.be.eql('description');
+                chai.expect(Object.keys(res.body)[2]).to.be.eql('location');
+                chai.expect(Object.keys(res.body)[3]).to.be.eql('capacity');
+                chai.expect(Object.keys(res.body)[4]).to.be.eql('startDate');
+                chai.expect(Object.keys(res.body)[5]).to.be.eql('endDate');
+                chai.expect(Object.keys(res.body)[6]).to.be.eql('_id');
+
+                //Here asserting that there is no extra element/property
+                chai.expect(Object.keys(res.body)[7]).to.be.eql(undefined);
+
+                // The attributes have the expected values (you may exclude checking the dates for events)
+                chai.expect(res.body).to.have.property('name').eql('Test event');
+                chai.expect(res.body).to.have.property('description').eql("");
+                chai.expect(res.body).to.have.property('location').eql("");
+                chai.expect(res.body).to.have.property('capacity').eql(10);
+
+
+                done()
+
+            });
+    });
+
+    it("POST/events/:eventId/bookings", function (done) {
+        chai.request('http://localhost:' + port + apiPath + version)
+            .post('/events/' + eventId + '/bookings')
+            .set('Content-type', 'application/json')
+            .send({
+                "firstName": "Jane",
+                "lastName": "Doe",
+                "tel": "",
+                "email": "jane@doe.com",
+                "spots": 2,
+                "eventId": eventId
+            })
+            .end((err, res) => {
+
+
+                // The status code shall be as expected (e.g., 201 for endpoint 1)
+                chai.expect(res).to.have.status(201);
+
+                chai.expect(res).to.have.header('Content-type', 'application/json; charset=utf-8');
+
+                // The response  is in json format
+                chai.expect(res).to.be.json;
+
+                chai.expect(res.body).to.be.a('object');
+
+                //No additional attributes are in the body
+                chai.expect(Object.keys(res.body).length).to.be.eql(6);
+
+                //The right attributes are in the body
+                chai.expect(Object.keys(res.body)[0]).to.be.eql('firstName');
+                chai.expect(Object.keys(res.body)[1]).to.be.eql('lastName');
+                chai.expect(Object.keys(res.body)[2]).to.be.eql('tel');
+                chai.expect(Object.keys(res.body)[3]).to.be.eql('email');
+                chai.expect(Object.keys(res.body)[4]).to.be.eql('spots');
+                chai.expect(Object.keys(res.body)[5]).to.be.eql('_id');
+
+                //Here asserting that there is no extra element/property
+                chai.expect(Object.keys(res.body)[6]).to.be.eql(undefined);
+
+
+                //The attributes have the expected values
+                chai.expect(res.body).to.have.property('firstName').eql('Jane');
+                chai.expect(res.body).to.have.property('lastName').eql('Doe');
+                chai.expect(res.body).to.have.property('tel').eql('');
+                chai.expect(res.body).to.have.property('email').eql('jane@doe.com');
+                chai.expect(res.body).to.have.property('spots').eql(2);
+                chai.expect(res.body).to.have.property('_id');
+
+
+
+                done()
+
+            });
+
+    })
 });

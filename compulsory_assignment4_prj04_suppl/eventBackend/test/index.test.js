@@ -276,11 +276,7 @@ describe('Endpoint tests', () => {
                 chai.expect(res.body).to.have.property('email').eql('jane@doe.com');
                 chai.expect(res.body).to.have.property('spots').eql(2);
                 chai.expect(res.body).to.have.property('_id');
-
-
-
                 done()
-
             });
 
     })

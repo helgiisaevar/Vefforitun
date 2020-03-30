@@ -4,7 +4,8 @@ var Event = require('./models/event');
 var Booking = require('./models/booking');
 var mongoose = require('mongoose');
 var utility = require('./utility/objectIdChecker');
-const basicAuth = require('express-basic-auth')
+//const basicAuth = require('express-basic-auth')
+const sha256 = require('js-sha256')
 
 //Import a body parser module to be able to access the request body as json
 const bodyParser = require('body-parser');
@@ -34,6 +35,7 @@ app.use(bodyParser.json());
 
 //Tell express to use cors -- enables CORS for this backend
 app.use(cors());
+
 
 //Event endpoints
 app.get(apiPath + version + '/events', (req, res) => {
@@ -84,6 +86,25 @@ app.delete(apiPath + version + '/events/:eventId', (req, res) => {
         return res.status(404).json({ "error": "Event not found!" });
     }
 
+    if(req.headers.authorization == undefined){
+        return res.status(403).json({"error": "Authorization needed"})
+    }
+    else{
+        //authentication here
+        var hash64 = req.get('Authorization');
+        var sub = hash64.substring(6);
+        var decoded = Buffer.from(sub, 'base64').toString('ascii').split(':');
+        var pw = decoded[1];
+        var user = decoded[0];
+        var pwHash = sha256(pw)
+        if(user == "admin" && pwHash =="2bb80d537b1da3e38bd30361aa855686bde0eacd7162fef6a25fe97bf527a25b"){
+            console.log('authorized')
+        }
+        else{
+            return res.status(403).json({"error": "user not authorized"})
+        }
+    }
+    
     Booking.find({ eventId: req.params.eventId }, (err, bookings) => {
         if (err) { return res.status(500).json({ "message": "Internal server error." }); }
 
@@ -188,6 +209,25 @@ app.delete(apiPath + version + '/events/:eventId/bookings/:bookingId', (req, res
 
     if (!utility.isValidObjectID(req.params.bookingId)) {
         return res.status(404).json({"message": "Booking not found!"});
+    }
+
+    if(req.headers.authorization == undefined){
+        return res.status(403).json({"error": "Authorization needed"})
+    }
+    else{
+        //authentication here
+        var hash64 = req.get('Authorization');
+        var sub = hash64.substring(6);
+        var decoded = Buffer.from(sub, 'base64').toString('ascii').split(':');
+        var pw = decoded[1];
+        var user = decoded[0];
+        var pwHash = sha256(pw)
+        if(user == "admin" && pwHash =="2bb80d537b1da3e38bd30361aa855686bde0eacd7162fef6a25fe97bf527a25b"){
+            console.log('authorized')
+        }
+        else{
+            return res.status(403).json({"error": "user not authorized"})
+        }
     }
 
     Booking.findOneAndDelete({eventId: req.params.eventId, _id: req.params.bookingId}, function(err, booking) {

@@ -60,7 +60,10 @@ describe('Endpoint tests', () => {
         chai.request('http://localhost:'+ port + apiPath + version).get('/events').end( (err, res) => {
             //Status code is 200
             chai.expect(res).to.have.status(200);
-            chai.expect(res).to.have.header('Content-type', 'application/json; charset=utf-8');
+            //console.log(JSON.stringify(res.header))
+            var header = JSON.parse(JSON.stringify(res.header))
+            var contentType = header["content-type"]
+            chai.expect(contentType).to.include('application/json')
             
             //The response body is in json format -> teacher's misspelled it, should be that the format is json, not  particularly the body
             chai.expect(res).to.be.json
@@ -79,7 +82,11 @@ describe('Endpoint tests', () => {
         chai.request('http://localhost:'+ port + apiPath + version).get('/events/' + eventId).end( (err, res) => {
             // The status code shall be as expected (e.g., 200 for endpoint 1)
             chai.expect(res).to.have.status(200);
-            chai.expect(res).to.have.header('Content-type', 'application/json; charset=utf-8');
+
+            var header = JSON.parse(JSON.stringify(res.header))
+            var contentType = header["content-type"]
+            chai.expect(contentType).to.include('application/json')
+            //chai.expect(res).to.have.header('Content-type', 'application/json; charset=utf-8');
 
             // The response body is in json format
             chai.expect(res).to.be.json
@@ -117,7 +124,11 @@ describe('Endpoint tests', () => {
         chai.request('http://localhost:'+ port + apiPath + version).get('/events/' + eventId + '/bookings').end( (err, res) => {
             //Status code is 200
             chai.expect(res).to.have.status(200);
-            chai.expect(res).to.have.header('Content-type', 'application/json; charset=utf-8');
+
+            var header = JSON.parse(JSON.stringify(res.header))
+            var contentType = header["content-type"]
+            chai.expect(contentType).to.include('application/json')
+            //chai.expect(res).to.have.header('Content-type', 'application/json; charset=utf-8');
             
             //The response body is in json format -> teacher's misspelled it, should be that the format is json, not  particularly the body
             chai.expect(res).to.be.json
@@ -136,7 +147,10 @@ describe('Endpoint tests', () => {
         chai.request('http://localhost:'+ port + apiPath + version).get('/events/' + eventId + '/bookings/' + bookingId).end( (err, res) => {
             // The status code shall be as expected (e.g., 200 for endpoint 1)
             chai.expect(res).to.have.status(200);
-            chai.expect(res).to.have.header('Content-type', 'application/json; charset=utf-8');
+            var header = JSON.parse(JSON.stringify(res.header))
+            var contentType = header["content-type"]
+            chai.expect(contentType).to.include('application/json')
+            //chai.expect(res).to.have.header('Content-type', 'application/json; charset=utf-8');
 
             // The response body is in json format
             chai.expect(res).to.be.json
